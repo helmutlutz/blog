@@ -12,3 +12,9 @@ Contains the articles that I write
     bundle add webrick
     bundle exec jekyll serve
     ```
+
+- Another issue was that the css was not rendering properly online - locally it did. The solution was to add an url and baseurl to the _config.yml (actually this was described in the guide as optional step, just didn't read it careful enough): 
+    ```
+    baseurl: "/blog" # the subpath of your site, e.g. /blog
+    url: "https://helmutlutz.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+    ```

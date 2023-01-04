@@ -2,7 +2,7 @@
 layout: post
 title:  "Setting up my first Jekyll blog"
 date:   2023-01-03 20:55:50 +0100
-categories: jekyll update
+tags: infrastructure
 ---
 # Setting up my first Jekyll blog
 These are the steps that I followed:  
@@ -10,6 +10,7 @@ These are the steps that I followed:
 - Next you need to setup github-pages with jekyll. Follow this guide: [Github pages guide][ghpages-setup]
 - Adding content is described in this article: [Adding content][adding-content-to-ghpages]
   
+# Issues
 - Running the page locally did not quite work as in the guide above, you have to add webrick in between: 
     ```
     bundle install

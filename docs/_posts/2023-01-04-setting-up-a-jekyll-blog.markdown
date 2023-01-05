@@ -2,9 +2,8 @@
 layout: post
 title:  "Setting up my first Jekyll blog"
 date:   2023-01-03 20:55:50 +0100
-tags: infrastructure
+categories: SetupNotes
 ---
-# Setting up my first Jekyll blog
 These are the steps that I followed:  
 - Starting from scratch on Windows, I followed this guide for the Jekyll installation: [Jekyll installation guide][jekyll-installation]
 - Next you need to setup github-pages with jekyll. Follow this guide: [Github pages guide][ghpages-setup]

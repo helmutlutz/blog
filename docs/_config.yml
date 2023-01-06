@@ -54,8 +54,8 @@ disqus:
 # (http://yourusername.github.io/repository-name)
 # and NOT your User repository (http://yourusername.github.io)
 # then add in the baseurl here, like this: "/repository-name"
-baseurl: "/blog" # the subpath of your site, e.g. /blog
-url: "https://helmutlutz.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://www.scrycode.de" # the base hostname & protocol for your site, e.g. http://example.com
 
 #
 # !! You don't need to change any of the configuration flags below !!

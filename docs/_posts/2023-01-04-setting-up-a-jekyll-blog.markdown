@@ -4,10 +4,9 @@ title:  "Setting up this Jekyll blog"
 date:   2023-01-03 20:55:50 +0100
 categories: SetupNotes
 ---
-These are the steps that I followed:  
+This is just a plain list of steps that I followed to get this site up and running.  
 - Starting from scratch on Windows, I followed this guide for the Jekyll installation: [Jekyll installation guide][jekyll-installation]
-- Next you need to setup github-pages with jekyll. Follow this guide: [Github pages guide][ghpages-setup]
-- Adding content is described in this article: [Adding content][adding-content-to-ghpages]
+- The tutorial in [Github pages guide][ghpages-setup] describe how to set up the repostiory and how to create a site with Jekyll
   
 # Issues
 - Running the page locally did not quite work as in the guide above, you have to add webrick in between: 

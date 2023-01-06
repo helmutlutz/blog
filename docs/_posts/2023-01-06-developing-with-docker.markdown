@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "Setting up a Docker environment"
-date:   2022-12-6 15:55:50 +0100
-tags: infrastructure
+date:   2023-01-06 15:55:50 +0100
+categories: SetupNotes
 ---
 # Setting up a Docker environment, locally and on AWS
 This post is rather a collection of notes/learnings than a proper article. I started with this documentation when I was in the preparation phase for my project about building text generators. Since I knew that I wanted to finally deploy (or train) on AWS, I thought it might be a good idea to use an environment which I could simply transfer to the cloud. Docker seemed to be such an environment, so I started setting it up locally and also experimented with transferring it to EC2 instances in AWS. 
@@ -28,7 +28,7 @@ This post is rather a collection of notes/learnings than a proper article. I sta
     docker image save model-builder:latest -o model-builder.tar; \
     gzip model-builder.tar  
     ```
-- Then move this tar file to a directory outside of this repo. Make sure you have the pem-file for the EC2 instance there as well (model-builder.pem):
+- Then move this tar file to a directory outside of this repo. Make sure you have the pem-file for the EC2 instance there as well (`model-builder.pem`):
     ```
     mv model-builder.tar.gz ~/Documents/Projects/resources/TextGenerators/; \
     cd ~/Documents/Projects/resources/TextGenerators/; \
@@ -37,9 +37,9 @@ This post is rather a collection of notes/learnings than a proper article. I sta
 
 
 # Setup a Docker image on an EC2 instance  
-- **Note**: I haven't tested a container environment for actual training. It was unclear if GPUs could be accessed from the container and root-installing the environment simply seemed more efficient.  
+- **Note**: I haven't tested a container environment for the actual training of the text generators. It was unclear to me if GPUs could be accessed from the container and root-installing the environment simply seemed more efficient.  
 - This section requires that you completed the sections "Setup an EBS volume" and "Packaging a docker image" 
-- On the EC2 instance, run (with the correct access tokens):  
+- On the EC2 instance, run the following commands (setting access token environment variables are optional - I used them to access the Twitter API):  
     ```
     gunzip /tmp/model-builder.tar.gz; \
     docker image load -i /tmp/model-builder.tar; \
@@ -57,8 +57,8 @@ This post is rather a collection of notes/learnings than a proper article. I sta
 
 # Connecting VScode to the docker container on EC2
 - Using these tutorials:  
-    https://code.visualstudio.com/docs/remote/remote-overview
-    https://code.visualstudio.com/docs/remote/ssh-tutorial
+    - [VS Code remote overview][vscode-remote]  
+    - [VS Code SSH tutorial][vscode-ssh]  
 - Install the "Remote Development" extension pack.
 - In VSCode you need to specify the config file in Ctrl+Shift+P: "Remote-SSH open SSH configuration file"
     `C:\Users\...\AppData\Local\Programs\Git\etc\ssh\ssh_config`
@@ -73,3 +73,6 @@ In the config file, add this block:
 - Use the status icon in the lower left (><) or Ctrl+Shift+P: "Remote-SSH: Connect to Host (aws-ec2 can be selected)
 - Once you are connected you can use Ctrl+Shift+P: "Remote-Containers: Attach to running containers" and you will be able to select the container that you started on the instance.
 
+
+[vscode-remote]: https://code.visualstudio.com/docs/remote/remote-overview
+[vscode-ssh]: https://code.visualstudio.com/docs/remote/ssh-tutorial

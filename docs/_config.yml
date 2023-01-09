@@ -9,10 +9,10 @@ name: scrycode
 author: Helmut Lutz
 
 # Short bio or description (displayed in the header)
-description: Just personal thoughts and learnings that I collect along the way. 
+description: Notes along the way 
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
-avatar: # /images/reverie.png
+avatar: /images/sc-Logo.png
 
 #
 # Flags below are optional

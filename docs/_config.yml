@@ -3,7 +3,7 @@
 #
 
 # Name of your site (displayed in the header)
-name: scrycode
+name: scry.code
 
 # Name of the author
 author: Helmut Lutz
@@ -12,7 +12,7 @@ author: Helmut Lutz
 description: Notes along the way 
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
-avatar: /images/sc-Logo.png
+avatar: /images/sc-Logo2.png
 
 #
 # Flags below are optional

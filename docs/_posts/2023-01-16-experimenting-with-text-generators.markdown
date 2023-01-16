@@ -1,26 +1,34 @@
 ---
 layout: post
 title:  "Building a text generator on AWS"
-date:   2023-01-04 20:55:50 +0100
-tags: cloud machinelearning
+date:   2023-01-16 20:55:50 +0100
+tags: Cloud MachineLearning
 ---
-# Project: Building a Text Generator on AWS
-Inspired by these articles:  
-"Deep Faking" Political Twitter using Transfer learning and GPT-2; 2019  
-[Deep Drumpf][deep-drumpf]
-[Building a lyrics generator with markov chains][lyrics-with-markov]
-[Create your first LSTM][create-first-lstm]
-[Fine tuning GPT-2][tuning-gpt2]
+# Intro to the project
+I started this project because I was curious about a technique, which, despite being a niche (from a theoretical perspective), is totally hyped right now. People even build huge machine learning systems just because they are so versatile and applicable in our everyday lives. The ML systems I'm talking about are called *language models*.  
+In this particular domain I saw multiple things that I was curious about: Lately the research and developer community switched from recurrent neural networks to *transformer* architectures. It is possible to train these models on large, unspecific datasets, and then fine tune them to a particular style (or author), such that your model is able to produce text in the very same style.  
+Also from an operational point of view, I saw several things I wanted to learn for my daily work and which would nicely combine with the task of training and running these language models: One thing is the whole AWS stack. I wanted to learn to transfer code to the cloud, train my models there, and run inference tasks.  
+So I decided to come up with a project to bring these things together.  
   
-The sections in this readme have been created largely in a modular way. Not everything might be necessary for a new setup (e.g. using a docker image on an EC2 instance). Some sections were only experimental and haven't been fully developed yet (e.g. the section about using Docker Compose to make a multi-container setup). 
-  
+If you are interested in reading material: this project was initially inspired by the following articles  
+- [The Unreasonable Effectiveness of Recurrent Neural Networks][karpathy-rnns]
+- "Deep Faking" Political Twitter using Transfer learning and GPT-2; 2019  
+- [Deep Drumpf][deep-drumpf]
+- [Building a lyrics generator with markov chains][lyrics-with-markov]
+- [Create your first LSTM][create-first-lstm]
+- [Fine tuning GPT-2][tuning-gpt2]
+
+## The plan
+So how to best put together a project that has lots of learning potential? 
+
+## Preparation and local testing
 
 ### Collecting data
 - Find your consumer key, consumer secret, access token, and access token secret.
 - In the VScode terminal, execute:
   `export CONSUMER_KEY="...."` (for all four keys)
 - Execute the command:
-  `cd /backend/data_collector; python profile_scraper.py -p antonioguterres -f`
+  `cd /backend/data_collector; python profile_scraper.py -p <some-twitter-handle> -f`
 
 
 ### Training a first model
@@ -36,7 +44,7 @@ The sections in this readme have been created largely in a modular way. Not ever
     ```
 
 
-## Deployment to AWS
+## Setup in AWS and deployment of the training
 
 ### Setup of AWS
 - Create an AWS account
@@ -230,7 +238,7 @@ The template was adjusted to use c5n.4xlarge (alternatively one of the c5a insta
 - Cancel the running spot fleet request by issuing `aws ec2 cancel-spot-fleet-requests`
 
 
-
+[karpathy-rnns]: http://karpathy.github.io/2015/05/21/rnn-effectiveness/
 [deep-drumpf]: https://www.inverse.com/article/12418-donald-trump-artificial-intelligence-neural-network  
 [twitter-bot-with-tweepy]: https://realpython.com/twitter-bot-python-tweepy/  
 [lyrics-with-markov]: https://realpython.com/lyricize-a-flask-app-to-create-lyrics-using-markov-chains/  

@@ -2,15 +2,15 @@
 layout: post
 title:  "Building a text generator on AWS"
 date:   2023-01-16 20:55:50 +0100
-tags: Cloud MachineLearning
+tags: CloudServices MachineLearning
 ---
 # Intro to the project
 I started this project because I was curious about a technique, which, despite being a niche (from a theoretical perspective), is totally hyped right now. People even build huge machine learning systems just because they are so versatile and applicable in our everyday lives. The ML systems I'm talking about are called *language models*.  
-In this particular domain I saw multiple things that I was curious about: Lately the research and developer community switched from recurrent neural networks to *transformer* architectures. It is possible to train these models on large, unspecific datasets, and then fine tune them to a particular style (or author), such that your model is able to produce text in the very same style.  
-Also from an operational point of view, I saw several things I wanted to learn for my daily work and which would nicely combine with the task of training and running these language models: One thing is the whole AWS stack. I wanted to learn to transfer code to the cloud, train my models there, and run inference tasks.  
-So I decided to come up with a project to bring these things together.  
+In this particular domain I saw multiple things that I was curious about: Lately the research and developer community switched from recurrent neural networks to *transformer* architectures. It is possible to train these models on large, unspecific datasets, and then fine tune them to a particular style (or author), such that your model is able to produce text in the same style.  
+Also from an operational point of view, I saw some opportunities to explore a new topic which was relevant for my daily work: *cloud services*. Cloud services like the ones you get from Amazon Web Services (AWS), Microsoft Azure, or Google Cloud Platform come handy when you want to train and run these language models. In the cloud you are 'free' to rent hardware you wouldn't normally buy for your home PC. I think for the entire project I spent something in the order of 30 €. If you just want to play around, I believe that Google Colab or Kaggle Notebooks are your best options - you can use a GPU or TPU for quite some time without charge. However, my company has moved to the AWS ecosystem, so that relieves me of picking a provider myself.
+So that's basically why I wanted to come up with a project to bring these two things together: Learning a little about new frontiers in machine learning and getting more familiar with our tech stack.
   
-If you are interested in reading material: this project was initially inspired by the following articles  
+If you are interested in some articles on the topic, these are the ones that inspired me to do this project:  
 - [The Unreasonable Effectiveness of Recurrent Neural Networks][karpathy-rnns]
 - "Deep Faking" Political Twitter using Transfer learning and GPT-2; 2019  
 - [Deep Drumpf][deep-drumpf]

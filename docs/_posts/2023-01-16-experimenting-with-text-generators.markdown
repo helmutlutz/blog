@@ -5,10 +5,14 @@ date:   2023-01-16 20:55:50 +0100
 tags: CloudServices MachineLearning
 ---
 # Intro to the project
-I started this project because I was curious about a technique, which, despite being a niche (from a theoretical perspective), is totally hyped right now. People even build huge machine learning systems just because they are so versatile and applicable in our everyday lives. The ML systems I'm talking about are called *language models*.  
-In this particular domain I saw multiple things that I was curious about: Lately the research and developer community switched from recurrent neural networks to *transformer* architectures. It is possible to train these models on large, unspecific datasets, and then fine tune them to a particular style (or author), such that your model is able to produce text in the same style.  
-Also from an operational point of view, I saw some opportunities to explore a new topic which was relevant for my daily work: *cloud services*. Cloud services like the ones you get from Amazon Web Services (AWS), Microsoft Azure, or Google Cloud Platform come handy when you want to train and run these language models. In the cloud you are 'free' to rent hardware you wouldn't normally buy for your home PC. I think for the entire project I spent something in the order of 30 €. If you just want to play around, I believe that Google Colab or Kaggle Notebooks are your best options - you can use a GPU or TPU for quite some time without charge. However, my company has moved to the AWS ecosystem, so that relieves me of picking a provider myself.
-So that's basically why I wanted to come up with a project to bring these two things together: Learning a little about new frontiers in machine learning and getting more familiar with our tech stack.
+I started this project because I was curious about a technique, which, despite being a niche (from a theoretical perspective), is totally hyped right now. People even build huge machine learning systems just because they are so versatile and applicable in our everyday lives. I'm talking about *language models*.  
+In this particular domain I saw multiple things that I was curious about:  
+- Lately the academic community as well as the industry switched from recurrent neural networks to so called *transformer* architectures. It seemed to be fairly straightforward to obtain one of these models trained unspecifically on a large text datasets, and then fine-tune them to a particular style, such that your model is able to produce text in the same style (e.g. "write like Shakespeare"). So this is point number one that I was interested in.  
+- Second, I saw some opportunities to explore a new topic which was relevant for my daily work: *cloud services*. Cloud services like the ones you get from Amazon Web Services (AWS), Microsoft Azure, or Google Cloud Platform come handy when you want to train and run these language models. In the cloud you are 'free' to rent hardware you wouldn't normally buy for your home PC. I think for the entire project I spent something in the order of 30 €. If you just want to play around, I believe that Google Colab or Kaggle Notebooks are your best options - you can use a GPU or TPU for quite some time without charge. However, my company has moved to the AWS ecosystem, so that relieves me of picking a provider myself.  
+- The third point is that if you want to be able to train such language models yourself, you would want to know how to obtain the data for training them. In practice, this is accomplished by a script which automatically extracts data from the HTML of websites ("web crawling") or uses an API of some website to directly access it's database. As a data scientist, the ability to pull data from random sources is always a nice add-on for your toolbox. So this is the last bullet point on my list of "gains", that I expected to get from this project.  
+  
+So that's basically why I wanted to come up with a project to bring these three things together: Learning a little about new frontiers in machine learning, getting more familiar with the tech stack used in my (and many other) companies, and learning how to collect and preprocess relevant data from web resources.
+  
   
 If you are interested in some articles on the topic, these are the ones that inspired me to do this project:  
 - [The Unreasonable Effectiveness of Recurrent Neural Networks][karpathy-rnns]
@@ -18,22 +22,62 @@ If you are interested in some articles on the topic, these are the ones that ins
 - [Create your first LSTM][create-first-lstm]
 - [Fine tuning GPT-2][tuning-gpt2]
 
-## The plan
-So how to best put together a project that has lots of learning potential? 
+
+# Project outline
+What are the ingredients of this project? Some text data, a language model, and an account in AWS. Playing with the language models was a big part, and here I tried to follow the tracks of history, to see where the current state was coming from:
+- The simplest approach to try was a *Markov chain model*. It's just 80 lines of code, which you can still implement without fancy packages, plus, you'll immediately understand what every line is doing.
+- Going in big leaps up the evolutionary ladder of models, I wanted to try out *long / short term memory recurrent neural networks* (LSTM RNNs) - if you check out [Create your first LSTM][create-first-lstm], there are nice links which summarize how RNNs / LSTM RNNs work.
+- And finally, there's the (current) masterclass: *transformers*. It's beyond my time constraints to implement a transformer myself, but with Hugging Face's transformers library it's only a matter of using the API in the right way.  
+  
+The second big package was getting set up in the AWS environment. Initially I thought about setting up all environments for training and deployment in docker (well you know the hype). But I came across two reasons why it might not be a good idea for a simple project like mine, or maybe even the typical data science use cases:
+- First, complexity: Docker adds an additional layer of complexity to the training and deployment process, especially for a project where you have limited time resources and the focus is to build a prototype.
+- From my experience, added complexity (in the cloud) goes hand in hand with some overhead, which you should only accept if absolutely neccessary. Basically with my small dataset and me being the only user, ends don't justify the means.
+
+
+# Step by step
 
 ## Preparation and local testing
+At the very beginning of this project, I immediately thought of Twitter as a potential source for text data. Wikipedia was another option but Twitter had the appeal to contain more or less unfiltered quotes (so how people would think and talk). However, gathering and cleaning tweets was a longer story and in this post, I'd rather focus on the machine learning- and cloud services part. Looking for a better use case, I came across a dataset of Magic: The Gathering cards, where you could easily extract all the so called "flavor texts". These are snippets of text which are usually like quotes straight out of a fantasy book. 
 
-### Collecting data
-- Find your consumer key, consumer secret, access token, and access token secret.
-- In the VScode terminal, execute:
-  `export CONSUMER_KEY="...."` (for all four keys)
-- Execute the command:
-  `cd /backend/data_collector; python profile_scraper.py -p <some-twitter-handle> -f`
+### Collecting data from mtgjson.com project
+Go to mtgjson.com and download the AllPrintings.json from the Downloads section. I used a very simple script to extract the flavor text snippets and save them to a csv file:
+```python
+import json
+import os
+import pandas as pd
 
+# %%
+sourceFolder = "../../lib/scraper"
+
+with open(os.path.join(sourceFolder, "AllPrintings.json")) as f:
+    db = json.load(f)
+# %%
+print(db["data"]["ZNR"]["cards"][0]["flavorText"])
+
+flavorText_list = []
+
+for s in db["data"].keys():
+
+    for c in db["data"][s]["cards"]:
+        if "flavorText" not in c.keys():
+            continue
+        if c["language"] == "English":
+
+            text = c["flavorText"]
+            if "—" in text:
+                text = text[: text.index("—")]
+
+            flavorText_list.append(text)
+
+output_path = os.path.join(sourceFolder, "mtg_archive.csv")
+df = pd.DataFrame(flavorText_list, columns=["Text"])
+df.drop_duplicates(subset=["Text"], inplace=True)
+df.to_csv(output_path)
+```
 
 ### Training a first model
 - You can use the script `/backend/model_builder/rnn_builder.py` as a standalone solution to train and generate some text. To run it, you need to be in the root directory (where the folders `/backend` and `/lib` are located)
-    ```
+    ```bash
     # Train the first model with '-t':
     /usr/local/bin/python TextGenerators/backend/model_builder/rnn_builder.py -t
     or
@@ -66,7 +110,7 @@ So how to best put together a project that has lots of learning potential?
     or
     `ssh -i "/c/Users/.../nn-trainer.pem" ec2-user@ec2-x-xx-xxx-xx.eu-central-1.compute.amazonaws.com`  # With Amazon Linux 2 AMI
 - Optional: Install Docker with the following commands:
-    ```
+    ```bash
     sudo apt-get update; \
     sudo apt install docker.io; \
     sudo adduser ubuntu docker; \
@@ -75,7 +119,7 @@ So how to best put together a project that has lots of learning potential?
 
 ### Setup an EBS volume
 - Data transfers will be managed with a general purpose instance. You can create it with the CLI as follows:
-    ```
+    ```bash
     aws ec2 run-instances \
         --image-id ami-09439f09c55136ecf \
         --count 1 \
@@ -85,7 +129,7 @@ So how to best put together a project that has lots of learning potential?
     ```
 - ami-09439f09c55136ecf is an "Amazon Linux 2" image; the default user is "ec2-user"
 - Next, create an EBS volume for your datasets and checkpoints:
-    ```
+    ```bash
     aws ec2 create-volume \
         --size 4 \
         --region eu-central-1 \
@@ -94,7 +138,7 @@ So how to best put together a project that has lots of learning potential?
         --tag-specifications 'ResourceType=volume,Tags=[{Key=Name,Value=DL-datasets-checkpoints}]' 
     ```
 - Save the volume-id returned by the previous command then attach the volume:
-    ```
+    ```bash
     aws ec2 attach-volume \
         --volume-id vol-<your_volume_id> \
         --instance-id i-<your_instance_id> \
@@ -103,14 +147,14 @@ So how to best put together a project that has lots of learning potential?
     Depending on the operating system it has trouble with the --device parameter. On Windows in the Git bash, I needed '//dev\sdf'.
 - Now you have to create a directory on the EC2 instance and mount it. You cannot directly ssh to the ec2 instance. In EC2 / Instances / your instance / Security / click the security group / you have to delete the old inbound rule in the security group and add a new rule: to allow your IP on port 22.
 - If you are attaching a blank EBS volume, use:
-    ```
+    ```bash
     sudo mkdir /dltraining; sudo mkfs -t xfs /dev/xvdf; sudo mount /dev/xvdf /dltraining; sudo chown -R ec2-user: /dltraining/; cd /dltraining; mkdir datasets; mkdir checkpoints
     ```
 - If you did this step before, the instance will already have the folder /dltraining and the EBS volume will already contain data from a previous run, you only need to mount it:
     `sudo mount /dev/xvdf /dltraining; sudo chown -R ec2-user: /dltraining/;`
 - Prepare files on the EBS volume prior to mounting it for training:
     - Copy over the necessary files:
-    ```
+    ```bash
     cd /c/Users/.../TextGenerators/backend/model_builder; \
     scp -r -i "/c/Users/.../nn-trainer.pem" \
         requirements_rnn.txt rnn_builder.py datasets \
@@ -121,7 +165,7 @@ So how to best put together a project that has lots of learning potential?
     - The volume can be detached in the EC2 console.
     - Useful to get an overview of mounted volumes: `findmnt`  
 - You can terminate the instance with this command:
-    ```
+    ```bash
     aws ec2 terminate-instances \
         --instance-ids i-<your_instance_id> \
         --output text
@@ -146,7 +190,7 @@ So how to best put together a project that has lots of learning potential?
 - Note: Could also work but I haven't tested the Deep Learning Base AMI yet: ami-0acb218a9a0302218 (it has only GPU drivers and Docker, no python packages)
 - In "Advanced details", where you should add the IAM role, there was only a selection field for an IAM Profile
 - There was no description for how to create an IAM profile for this step, but I could use the solution described here: https://aws.amazon.com/premiumsupport/knowledge-center/iam-role-not-in-list/
-    ```
+    ```bash
     aws iam create-instance-profile --instance-profile-name DL-Training
     aws iam add-role-to-instance-profile --role-name DL-Training --instance-profile-name DL-Training
     ```
@@ -199,7 +243,7 @@ The template was adjusted to use c5n.4xlarge (alternatively one of the c5a insta
 
 - The first step will be to set up a dedicated EBS (elastic block store) volume to store data and logs. This is described in the section "Setup an EBS volume"
 - During training, I want the spot instance to have access to my datasets and checkpoints in the EBS volume I created in step 1. However, only volumes in the same Availability Zone as the instances can be attached to it. If the volume and the instance are in different Availability Zones, a new volume needs to be created using a snapshot of the volume stored in Amazon S3. 
-    ```
+    ```bash
     aws iam create-role \
         --role-name DL-Training \
         --assume-role-policy-document '{"Version":"2012-10-17","Statement":[{"Sid":"","Effect":"Allow","Principal":{"Service":"ec2.amazonaws.com"},"Action":"sts:AssumeRole"}]}'
@@ -209,7 +253,7 @@ The template was adjusted to use c5n.4xlarge (alternatively one of the c5a insta
     Create snapshots from volumes
     Describe spot instances
     Cancel spot fleet requests and terminate instances
-    ```
+    ```bash
     aws iam create-policy \
         --policy-name ec2-permissions-dl-training  \
         --policy-document file://ec2-permissions-dl-training.json
@@ -221,7 +265,7 @@ The template was adjusted to use c5n.4xlarge (alternatively one of the c5a insta
 - The script checks with the volume and the instance are in the same Availability Zone. If they are in different Availability Zones, it first creates a point-in-time snapshot of the volume in Amazon S3. Once the snapshot is created, it deletes the volume and creates a new volume from the snapshot in the instance’s Availability Zone.
 - Next, adapt the spot fleet configuration file (spot_fleet_config.json) that includes target capacity (e.g. 1 instance), launch specifications for the instance, and the maximum price that you are willing to pay. Simple 1-GPU instances are g5.xlarge or p2.xlarge (a little more expensive). Use the correct key-pair-name and a security group that allows you to ssh into the instance.
 - To use the spot fleet Request, create an IAM fleet role by running the following commands:
-    ```
+    ```bash
     aws iam create-role \
         --role-name DL-Training-Spot-Fleet-Role \
         --assume-role-policy-document '{"Version":"2012-10-17","Statement":[{"Sid":"","Effect":"Allow","Principal":{"Service":"spotfleet.amazonaws.com"},"Action":"sts:AssumeRole"}]}'
@@ -230,7 +274,7 @@ The template was adjusted to use c5n.4xlarge (alternatively one of the c5a insta
          --policy-arn arn:aws:iam::aws:policy/service-role/AmazonEC2SpotFleetTaggingRole --role-name DL-Training-Spot-Fleet-Role
     ```
 - You have to encode the user_data_script.sh with base64: 
-    ```
+    ```bash
     USER_DATA=`base64 user_data_script.sh -w0`
     sed -i '' "s|base64_encoded_bash_script|$USER_DATA|g" spot_fleet_config.json 
     ```

@@ -2,7 +2,7 @@
 layout: post
 title:  "Building a Twitter bot on AWS"
 date:   2022-11-15 15:55:50 +0100
-tags: cloud applications
+tags: CloudServices Applications
 ---
 # Project: Building a Twitter Bot on AWS
 Inspired by these articles:  

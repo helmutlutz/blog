@@ -5,10 +5,11 @@ date:   2023-01-16 20:55:50 +0100
 tags: CloudServices MachineLearning
 ---
 # Intro
+The third point is that if you want to train such language models yourself, you need to know how to obtain training data. In practice, this is accomplished by a script which automatically extracts data from the HTML of websites ("crawling" or "scraping") or uses an API of some website to directly access it's database. As data scientist, some experience in pulling data from random sources is always a nice-to-have. So this is the last bullet point on my list of "gains", that I expected to get out of this project.  
 At the very beginning of my [Building a text generator on AWS]({% post_url 2023-01-16-experimenting-with-text-generators %}) project, I immediately thought of Twitter as a potential source for text data. Wikipedia was another option but Twitter had the appeal to contain more or less unfiltered quotes (so how people would think and talk). Specifically I was interested in using such a datasets to fine-tune the models to imitate the writing style of some popular personalities (think of [Deep Drumpf][deep-drumpf] example).
 
 # Outline
-
+  
 
 # Step by step
 
@@ -46,3 +47,7 @@ You can refer to the twitter API documentation for more information on how to us
   `export CONSUMER_KEY="...."` (for all four keys)
 - Execute the command:
   `cd /backend/data_collector; python profile_scraper.py -p <some-twitter-handle> -f`
+
+
+
+[deep-drumpf]: https://www.inverse.com/article/12418-donald-trump-artificial-intelligence-neural-network  

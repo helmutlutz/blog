@@ -4,14 +4,13 @@ title:  "Building a text generator on AWS"
 date:   2023-01-16 20:55:50 +0100
 tags: CloudServices MachineLearning
 ---
-# Intro to the project
-I started this project because I was curious about a technique, which, despite being a niche (from a theoretical perspective), is totally hyped right now. People even build huge machine learning systems just because they are so versatile and applicable in our everyday lives. I'm talking about *language models*.  
-In this particular domain I saw multiple things that I was curious about:  
-- Lately the academic community as well as the industry switched from recurrent neural networks to so called *transformer* architectures. It seemed to be fairly straightforward to obtain one of these models trained unspecifically on a large text datasets, and then fine-tune them to a particular style, such that your model is able to produce text in the same style (e.g. "write like Shakespeare"). So this is point number one that I was interested in.  
-- Second, I saw some opportunities to explore a new topic which was relevant for my daily work: *cloud services*. Cloud services like the ones you get from Amazon Web Services (AWS), Microsoft Azure, or Google Cloud Platform come handy when you want to train and run these language models. In the cloud you are 'free' to rent hardware you wouldn't normally buy for your home PC. I think for the entire project I spent something in the order of 30 €. If you just want to play around, I believe that Google Colab or Kaggle Notebooks are your best options - you can use a GPU or TPU for quite some time without charge. However, my company has moved to the AWS ecosystem, so that relieves me of picking a provider myself.  
-- The third point is that if you want to be able to train such language models yourself, you would want to know how to obtain the data for training them. In practice, this is accomplished by a script which automatically extracts data from the HTML of websites ("web crawling") or uses an API of some website to directly access it's database. As a data scientist, the ability to pull data from random sources is always a nice add-on for your toolbox. So this is the last bullet point on my list of "gains", that I expected to get from this project.  
+# Introduction and motivation
+I started this project because I was curious about a sub-field of machine learning which is currently more hyped than quantum computing. Companies spend millions on this technology just because it is so versatile and applicable in our everyday lives. I'm talking about *language models*.  
+Without having any prior experience in this domain, I saw two things that I was curious about:  
+- Lately the academic community as well as the industry switched from recurrent neural networks to so called *transformer* architectures. It seemed to be fairly straightforward to obtain one of these models pre-trained on a large text dataset, and then fine-tune it, such that the model is able to produce text in the same style as your training data (e.g. "write like Shakespeare"). So this is point number one that sparked my interest.  
+- Second, I saw some opportunities to explore a new topic which was very relevant for my daily work: *Cloud services*. Cloud services like the ones you get from Amazon Web Services (AWS), Microsoft Azure, or Google Cloud Platform come handy when you want to train and run these language models. In the cloud, it is simple to rent hardware you would never buy privately. I think for the entire project I spent something in the order of 30 €, which is little given the machines that I used. If you just want to play around, I believe that Google Colab or Kaggle Notebooks are your best options - you can use a GPU or TPU for quite some time without charge. My company has recently moved to the AWS ecosystem, so that simplifies the choice for me.  
   
-So that's basically why I wanted to come up with a project to bring these three things together: Learning a little about new frontiers in machine learning, getting more familiar with the tech stack used in my (and many other) companies, and learning how to collect and preprocess relevant data from web resources.
+That's basically why I wanted to come up with a project to bring these things together: Learning a little about the latest fad in machine learning and getting more familiar with state-of-the-art cloud services.
   
   
 If you are interested in some articles on the topic, these are the ones that inspired me to do this project:  
@@ -23,36 +22,29 @@ If you are interested in some articles on the topic, these are the ones that ins
 - [Fine tuning GPT-2][tuning-gpt2]
 
 
-# Project outline
+# Project definition
 What are the ingredients of this project? Some text data, a language model, and an account in AWS. Playing with the language models was a big part, and here I tried to follow the tracks of history, to see where the current state was coming from:
 - The simplest approach to try was a *Markov chain model*. It's just 80 lines of code, which you can still implement without fancy packages, plus, you'll immediately understand what every line is doing.
 - Going in big leaps up the evolutionary ladder of models, I wanted to try out *long / short term memory recurrent neural networks* (LSTM RNNs) - if you check out [Create your first LSTM][create-first-lstm], there are nice links which summarize how RNNs / LSTM RNNs work.
 - And finally, there's the (current) masterclass: *transformers*. It's beyond my time constraints to implement a transformer myself, but with Hugging Face's transformers library it's only a matter of using the API in the right way.  
   
-The second big package was getting set up in the AWS environment. Initially I thought about setting up all environments for training and deployment in docker (well you know the hype). But I came across two reasons why it might not be a good idea for a simple project like mine, or maybe even the typical data science use cases:
+The second big package was getting set up in the AWS environment. Initially I thought about setting up all environments for training and deployment in docker (well, you know the hype). But I came across two reasons why it might not be a good idea for a simple project like mine, or maybe even your typical data science project:
 - First, complexity: Docker adds an additional layer of complexity to the training and deployment process, especially for a project where you have limited time resources and the focus is to build a prototype.
 - From my experience, added complexity (in the cloud) goes hand in hand with some overhead, which you should only accept if absolutely neccessary. Basically with my small dataset and me being the only user, ends don't justify the means.
 
 
-# Step by step
+# Let's go step by step
 
 ## Preparation and local testing
-At the very beginning of this project, I immediately thought of Twitter as a potential source for text data. Wikipedia was another option but Twitter had the appeal to contain more or less unfiltered quotes (so how people would think and talk). However, gathering and cleaning tweets was a longer story and in this post, I'd rather focus on the machine learning- and cloud services part. Looking for a better use case, I came across a dataset of Magic: The Gathering cards, where you could easily extract all the so called "flavor texts". These are snippets of text which are usually like quotes straight out of a fantasy book. 
+At the very beginning of this project, I immediately thought of Twitter as a potential source for text data. Wikipedia was another option but Twitter had the appeal to contain more or less unfiltered quotes (so how people actually think and talk). Well, initially I did go the Twitter route but this is maybe a story for a different post since it would make this one unneccessarily long. In this post, I'd rather use a shortcut and focus on more interesting topics: the machine learning- and cloud services part. My shortcut is a dataset of *Magic: The Gathering* cards, where you can easily extract all the so called "flavor texts". These are snippets of text which are like quotes from a "Lord of the rings" book. At least to me, that was an interesting dataset, since I started to play MTG on the side at that time. But feel free to replace it with whatever other text corpus you are interested in (maybe Shakespeare or Dostoyevsky?). Doing all of this should be about the fun of it, so if you want to try it for yourself, pick something that makes it fun. 
 
 ### Collecting data from mtgjson.com project
-Go to mtgjson.com and download the AllPrintings.json from the Downloads section. I used a very simple script to extract the flavor text snippets and save them to a csv file:
+In case you want to follow my tracks, go to mtgjson.com and download the AllPrintings.json from the *Downloads* section. With a simple Python script you can extract the flavor text snippets and save them to a csv file. Just a quick note: I will try to reduce code snippets to core functionality and leave out boilerplate stuff.  
 ```python
-import json
-import os
-import pandas as pd
+# import [...]
 
-# %%
-sourceFolder = "../../lib/scraper"
-
-with open(os.path.join(sourceFolder, "AllPrintings.json")) as f:
+with open(os.path.join(source_folder_string, "AllPrintings.json")) as f:
     db = json.load(f)
-# %%
-print(db["data"]["ZNR"]["cards"][0]["flavorText"])
 
 flavorText_list = []
 
@@ -61,6 +53,7 @@ for s in db["data"].keys():
     for c in db["data"][s]["cards"]:
         if "flavorText" not in c.keys():
             continue
+
         if c["language"] == "English":
 
             text = c["flavorText"]
@@ -69,28 +62,61 @@ for s in db["data"].keys():
 
             flavorText_list.append(text)
 
-output_path = os.path.join(sourceFolder, "mtg_archive.csv")
 df = pd.DataFrame(flavorText_list, columns=["Text"])
 df.drop_duplicates(subset=["Text"], inplace=True)
-df.to_csv(output_path)
+df.to_csv(output_path_string)
 ```
 
-### Training a first model
-- You can use the script `/backend/model_builder/rnn_builder.py` as a standalone solution to train and generate some text. To run it, you need to be in the root directory (where the folders `/backend` and `/lib` are located)
-    ```bash
-    # Train the first model with '-t':
-    /usr/local/bin/python TextGenerators/backend/model_builder/rnn_builder.py -t
-    or
-    /usr/local/bin/python TextGenerators/backend/model_builder/gpt2_tuner.py -t -p ClimateLeader
+### The simplest model
+A Markov chain is one of the simplest approaches to text generation. In simple terms, a Markov chain looks at the current word (or group of letters) and chooses the next word (or group of letters) with a certain probability. The probabilities for the next word in the sequence are calculated from a larger text corpus. Or in ML speak, the model is "fitted" on a training dataset (well, not with gradient descent but you know what I mean).
+
+Usually we speak of so called "*n*-gram" models, where *n* is the number of words that the model considers to predict the next word. Based on this mechanic, the generated text is very similar in style to the input text. The core functionality can be discussed with the following two functions (taken from [Building a lyrics generator with Markov chains][lyrics-with-markov])  
+```python
+# import [...]
+
+def generateModel(text, order, model=None):
+    """
+    :param text:    A string of text which the model is generated from.
+    :param order:   An integer representing the length of the fragment.
+    :param model:   An optional parameter representing the language model. It is initialized as an empty dictionary {} if not provided.
+
+    :return:         A language model in the form of a dictionary 
+    """
+
+    if model == None:
+        model = {}
     
-    # Can also be used for inference by providing an initial seed string with '-s':
-    /usr/local/bin/python TextGenerators/backend/model_builder/rnn_builder.py -s 'They ' 
-    ```
+    for i in range(0, len(text) - order):
+        fragment = text[i:i+order]
+        next_letter = text[i+order]
+        if fragment not in model:
+            model[fragment] = {}
+        if next_letter not in model[fragment]:
+            model[fragment][next_letter] = 1
+        else:
+            model[fragment][next_letter] += 1
+    
+    return model
 
+def getNextCharacter(model, fragment):
+    letters = []
+    for letter in model[fragment].keys():
+        for times in range(0, model[fragment][letter]):
+            letters.append(letter)
+    
+    return random.choice(letters)
+```
+The `generateModel` function generates a simple language model in the form of a dictionary. In this dictionary, each key is a fragment of text with length equal to `order` parameter. The key's value is another dictionary, where the keys are "next letters" observed to follow a given fragment in the text and the values are the number of times those letters appear after the given fragment. The function then scans the text by sliding a window of length `order` over the text and counts the number of occurrences of "next letters" following each fragment. The resulting dictionary is our first simple "language model".
+  
+Finally, with the `getNextCharacter` function we can simply provide a stream of fragments, and in a probabilistic way predict the "next letter" for each fragment. To do so, the function looks into the dictionary and pulls out all letters observed to follow a certain text fragment. Then these letters are appended to the list `letters` as many times as they were observed in the original dataset to follow the respective fragment. From the resulting list we can choose a letter at random and automatically get a good match for our given fragment. Not only has it definitely been observed after the given fragment, but it will also have a good chance of beeing one of the most frequent letters to follow our fragment.  
 
-## Setup in AWS and deployment of the training
+### First results
+Here is a selection of sentences from the Markov chain model:  
+  
 
-### Setup of AWS
+## Setup in AWS training a first model 
+
+### Step by step setup of your AWS environment
 - Create an AWS account
 - Follow this tutorial to create an administrator IAM user and user group (console):
     https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html

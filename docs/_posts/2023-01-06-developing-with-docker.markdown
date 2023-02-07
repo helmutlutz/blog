@@ -5,7 +5,7 @@ date:   2023-01-06 15:55:50 +0100
 categories: SetupNotes CloudServices
 ---
 # Setting up a Docker environment, locally and on AWS
-This post is rather a collection of notes/learnings than a proper article. I started with this documentation when I was in the preparation for my project about building text generators. Since I knew that I wanted to finally deploy (or train) on AWS, I thought it might be a good idea to use an environment which I could simply transfer to the cloud. Docker seemed to be such an environment, so I started setting it up locally and also experimented with transferring it to EC2 instances in AWS. 
+This is rather a collection of notes/learnings than a "post". I started with this documentation when I was in the preparation for my project about building text generators. Since I knew that I wanted to finally deploy (or train) on AWS, I thought it might be a good idea to use an environment which I could simply transfer to the cloud. Docker seemed to be such an environment, so I started setting it up locally and also experimented with transferring it to EC2 instances in AWS. 
   
 # Developing code locally with VScode and a Docker container
 - Prerequisites: 
@@ -36,7 +36,7 @@ This post is rather a collection of notes/learnings than a proper article. I sta
     ```
 
 
-# Setup a Docker image on an EC2 instance  
+# Setting up a Docker image on an EC2 instance  
 - **Note**: I haven't tested a container environment for the actual training of the text generators. It was unclear to me if GPUs could be accessed from the container and root-installing the environment simply seemed more efficient.  
 - This section requires that you completed the sections "Setup an EBS volume" and "Packaging a docker image" 
 - On the EC2 instance, run the following commands (setting access token environment variables are optional - I used them to access the Twitter API):  

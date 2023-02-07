@@ -4,7 +4,7 @@ title:  "Building a text generator on AWS"
 date:   2023-01-16 20:55:50 +0100
 tags: CloudServices MachineLearning
 ---
-# Introduction and motivation
+# Transformers? Those car robots from space?
 I started this project because I was curious about a sub-field of machine learning which is currently more hyped than quantum computing. Companies spend millions on this technology just because it is so versatile and applicable in our everyday lives. I'm talking about *language models*.  
 Without having any prior experience in this domain, I saw two things that I was curious about:  
 - Lately the academic community as well as the industry switched from recurrent neural networks to so called *transformer* architectures. It seemed to be fairly straightforward to obtain one of these models pre-trained on a large text dataset, and then fine-tune it, such that the model is able to produce text in the same style as your training data (e.g. "write like Shakespeare"). So this is point number one that sparked my interest.  
@@ -22,7 +22,7 @@ If you are interested in some articles on the topic, these are the ones that ins
 - [Fine tuning GPT-2][tuning-gpt2]
 
 
-# Project definition
+# The recipe
 What are the ingredients of this project? Some text data, a language model, and an account in AWS. Playing with the language models was a big part, and here I tried to follow the tracks of history, to see where the current state was coming from:
 - The simplest approach to try was a *Markov chain model*. It's just 80 lines of code, which you can still implement without fancy packages, plus, you'll immediately understand what every line is doing.
 - Going in big leaps up the evolutionary ladder of models, I wanted to try out *long / short term memory recurrent neural networks* (LSTM RNNs) - if you check out [Create your first LSTM][create-first-lstm], there are nice links which summarize how RNNs / LSTM RNNs work.
@@ -112,7 +112,7 @@ Finally, with the `getNextCharacter` function we can simply provide a stream of 
 
 ### First results
 Here is a selection of sentences from the Markov chain model:  
-  
+  ...
 
 ## Setup in AWS training a first model 
 

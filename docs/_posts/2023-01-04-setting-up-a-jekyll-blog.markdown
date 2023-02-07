@@ -4,7 +4,7 @@ title:  "Setting up this Jekyll blog"
 date:   2023-01-03 20:55:50 +0100
 categories: SetupNotes
 ---
-This is just a plain list of steps that I followed to get this site up and running.  
+This is just a plain list of steps that I followed to get this site up and running. For my future self, or anyone who has similar issues. 
 - Starting from scratch on Windows, I followed this guide for the Jekyll installation: [Jekyll installation guide][jekyll-installation]
 - The tutorial in [Github pages guide][ghpages-setup] describe how to set up the repostiory and how to create a site with Jekyll
   

@@ -1,10 +1,10 @@
 ---
 layout: post
 title:  "Building a text generator on AWS"
-date:   2023-01-16 20:55:50 +0100
+date:   2023-02-16 20:55:50 +0100
 tags: CloudServices MachineLearning
 ---
-# Transformers? Those car robots from space?
+# Transformers and the Cloud
 I started this project because I was curious about a sub-field of machine learning which is currently more hyped than quantum computing. Companies spend millions on this technology just because it is so versatile and applicable in our everyday lives. I'm talking about *language models*.  
 Without having any prior experience in this domain, I saw two things that I was curious about:  
 - Lately the academic community as well as the industry switched from recurrent neural networks to so called *transformer* architectures. It seemed to be fairly straightforward to obtain one of these models pre-trained on a large text dataset, and then fine-tune it, such that the model is able to produce text in the same style as your training data (e.g. "write like Shakespeare"). So this is point number one that sparked my interest.  
@@ -38,7 +38,7 @@ The second big package was getting set up in the AWS environment. Initially I th
 ## Preparation and local testing
 At the very beginning of this project, I immediately thought of Twitter as a potential source for text data. Wikipedia was another option but Twitter had the appeal to contain more or less unfiltered quotes (so how people actually think and talk). Well, initially I did go the Twitter route but this is maybe a story for a different post since it would make this one unneccessarily long. In this post, I'd rather use a shortcut and focus on more interesting topics: the machine learning- and cloud services part. My shortcut is a dataset of *Magic: The Gathering* cards, where you can easily extract all the so called "flavor texts". These are snippets of text which are like quotes from a "Lord of the rings" book. At least to me, that was an interesting dataset, since I started to play MTG on the side at that time. But feel free to replace it with whatever other text corpus you are interested in (maybe Shakespeare or Dostoyevsky?). Doing all of this should be about the fun of it, so if you want to try it for yourself, pick something that makes it fun. 
 
-### Collecting data from mtgjson.com project
+## Collecting data from mtgjson.com project
 In case you want to follow my tracks, go to mtgjson.com and download the AllPrintings.json from the *Downloads* section. With a simple Python script you can extract the flavor text snippets and save them to a csv file. Just a quick note: I will try to reduce code snippets to core functionality and leave out boilerplate stuff.  
 ```python
 # import [...]
@@ -67,9 +67,10 @@ df.drop_duplicates(subset=["Text"], inplace=True)
 df.to_csv(output_path_string)
 ```
 
-### The simplest model
+## The simplest model
 A Markov chain is one of the simplest approaches to text generation. In simple terms, a Markov chain looks at the current word (or group of letters) and chooses the next word (or group of letters) with a certain probability. The probabilities for the next word in the sequence are calculated from a larger text corpus. Or in ML speak, the model is "fitted" on a training dataset (well, not with gradient descent but you know what I mean).
 
+### How it works
 Usually we speak of so called "*n*-gram" models, where *n* is the number of words that the model considers to predict the next word. Based on this mechanic, the generated text is very similar in style to the input text. The core functionality can be discussed with the following two functions (taken from [Building a lyrics generator with Markov chains][lyrics-with-markov])  
 ```python
 # import [...]
@@ -110,202 +111,36 @@ The `generateModel` function generates a simple language model in the form of a 
   
 Finally, with the `getNextCharacter` function we can simply provide a stream of fragments, and in a probabilistic way predict the "next letter" for each fragment. To do so, the function looks into the dictionary and pulls out all letters observed to follow a certain text fragment. Then these letters are appended to the list `letters` as many times as they were observed in the original dataset to follow the respective fragment. From the resulting list we can choose a letter at random and automatically get a good match for our given fragment. Not only has it definitely been observed after the given fragment, but it will also have a good chance of beeing one of the most frequent letters to follow our fragment.  
 
-### First results
-Here is a selection of sentences from the Markov chain model:  
-  ...
-
-## Setup in AWS training a first model 
-
-### Step by step setup of your AWS environment
-- Create an AWS account
-- Follow this tutorial to create an administrator IAM user and user group (console):
-    https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html
-    When the Admin user is created and added to the group of Administrators, you will see the Access Key ID and the Secret Access Key. Save these, they will be needed to set up the CLI 
-- The following two steps are needed if you want to use EBS/ECS:
-- If not already installed, install the AWS CLI (command line interface)
-- Configure the aws cli by going into the git-bash:
-    `aws configure`
-    Enter the Access Key ID, the Secret Access Key (you got these when creating the Administrator User in "Setup of AWS") and the default region (eu-central-1), output can be set to json.
-
-### Setup of an EC2 instance for hosting
-- Follow this tutorial to set up a micro-instance for hosting: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html
-- It is important to create and store a Key-Pair (`.pem` file). You'll need this to ssh to the instance.
-- Edit the inbound rules in your security group to allow SSH on port 22 from **your current IP**.
-- Now ssh to the instance: AWS suggests the command when you right-click the instance in the dashboard and select "Connect"
-    ` ssh -i "/c/Users/.../nn-trainer.pem" ubuntu@ec2-xx-xx-xxx-xxx.eu-central-1.compute.amazonaws.com`  # With Ubuntu AMI
-    or
-    `ssh -i "/c/Users/.../nn-trainer.pem" ec2-user@ec2-x-xx-xxx-xx.eu-central-1.compute.amazonaws.com`  # With Amazon Linux 2 AMI
-- Optional: Install Docker with the following commands:
-    ```bash
-    sudo apt-get update; \
-    sudo apt install docker.io; \
-    sudo adduser ubuntu docker; \
-    exit
-    ```
-
-### Setup an EBS volume
-- Data transfers will be managed with a general purpose instance. You can create it with the CLI as follows:
-    ```bash
-    aws ec2 run-instances \
-        --image-id ami-09439f09c55136ecf \
-        --count 1 \
-        --instance-type t2.micro \
-        --key-name nn-trainer \
-        --query "Instances[0].InstanceId"
-    ```
-- ami-09439f09c55136ecf is an "Amazon Linux 2" image; the default user is "ec2-user"
-- Next, create an EBS volume for your datasets and checkpoints:
-    ```bash
-    aws ec2 create-volume \
-        --size 4 \
-        --region eu-central-1 \
-        --availability-zone eu-central-1b \
-        --volume-type gp2 \
-        --tag-specifications 'ResourceType=volume,Tags=[{Key=Name,Value=DL-datasets-checkpoints}]' 
-    ```
-- Save the volume-id returned by the previous command then attach the volume:
-    ```bash
-    aws ec2 attach-volume \
-        --volume-id vol-<your_volume_id> \
-        --instance-id i-<your_instance_id> \
-        --device '//dev\sdf'
-    ```
-    Depending on the operating system it has trouble with the --device parameter. On Windows in the Git bash, I needed '//dev\sdf'.
-- Now you have to create a directory on the EC2 instance and mount it. You cannot directly ssh to the ec2 instance. In EC2 / Instances / your instance / Security / click the security group / you have to delete the old inbound rule in the security group and add a new rule: to allow your IP on port 22.
-- If you are attaching a blank EBS volume, use:
-    ```bash
-    sudo mkdir /dltraining; sudo mkfs -t xfs /dev/xvdf; sudo mount /dev/xvdf /dltraining; sudo chown -R ec2-user: /dltraining/; cd /dltraining; mkdir datasets; mkdir checkpoints
-    ```
-- If you did this step before, the instance will already have the folder /dltraining and the EBS volume will already contain data from a previous run, you only need to mount it:
-    `sudo mount /dev/xvdf /dltraining; sudo chown -R ec2-user: /dltraining/;`
-- Prepare files on the EBS volume prior to mounting it for training:
-    - Copy over the necessary files:
-    ```bash
-    cd /c/Users/.../TextGenerators/backend/model_builder; \
-    scp -r -i "/c/Users/.../nn-trainer.pem" \
-        requirements_rnn.txt rnn_builder.py datasets \
-        ec2-user@ec2-3-73-123-91.eu-central-1.compute.amazonaws.com:/dltraining
-    ```
-- **Important**: Unmount and detach the EBS volume after you have copied datasets and scripts into it.
-    - `sudo umount -d /dev/xvdf`
-    - The volume can be detached in the EC2 console.
-    - Useful to get an overview of mounted volumes: `findmnt`  
-- You can terminate the instance with this command:
-    ```bash
-    aws ec2 terminate-instances \
-        --instance-ids i-<your_instance_id> \
-        --output text
-    ```
-- **Shortcut**: Once the EBS volume exists, you can use the launch template `user_data_script_file_management.sh`, which automates the process of starting an instance and mounting the volume for you. Just edit the security group's inbound rules and the instance is ready for ssh/scp access.  
-
-### Setup EC2 instance for training with launch template
-- Reference: Tutorial for automatically attaching a persistent secondary EBS volume to a new EC2 Linux Spot Instance at boot
-    https://aws.amazon.com/premiumsupport/knowledge-center/ec2-linux-spot-instance-attach-ebs-volume/?nc1=h_ls
-
-- The first step will be to set up a dedicated EBS (elastic block store) volume to store data and logs. This is described in the section "Setup an EBS volume"  
-- **Important**: Unmount and detach the EBS volume after you have copied datasets and scripts into it.
-    - `sudo umount -d /dev/xvdf`
-    - The volume can be detached in the EC2 console.
-    - Useful to get an overview of mounted volumes: `findmnt`  
-- POC: Manually start an instance and try out the steps below and from the user_data_script_train_template.sh (mounting and unmounting, executing the python script, etc.)
-- Then, start with setting up the template script by navigating to EC2 / Instances / Launch Templates
-- Select g5.xlarge or g4dn.xlarge as the instance type  
-- Select the Deep Learning AMI GPU ...
-    ... TensorFlow (for rnn_builder): ami-00952eca414e66cbe
-    ... PyTorch (for gpt2-tuner): ami-084f03f64414b042f
-- Note: Could also work but I haven't tested the Deep Learning Base AMI yet: ami-0acb218a9a0302218 (it has only GPU drivers and Docker, no python packages)
-- In "Advanced details", where you should add the IAM role, there was only a selection field for an IAM Profile
-- There was no description for how to create an IAM profile for this step, but I could use the solution described here: https://aws.amazon.com/premiumsupport/knowledge-center/iam-role-not-in-list/
-    ```bash
-    aws iam create-instance-profile --instance-profile-name DL-Training
-    aws iam add-role-to-instance-profile --role-name DL-Training --instance-profile-name DL-Training
-    ```
-    (I reused the IAM role 'DL-Training' that I created in the section "Setup an automatic spot instance fleet request for training")
-- If you want the instance to self-terminate (with the last command in user_data_script_train_template.sh), you have to select "Terminate" in the dropdown for "Shutdown behavior" 
-- Paste your user_data_script_train_template.sh (in this repo next to this README) in the respective section.
-- To verify proper setup of the GPU, use 
-    `python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"`
-- Optional, not tested yet: The use of Docker 
-    - Transfer the docker image via the t2.micro instance into the EBS volume
-    - Edit the user data script so that it spins up the docker container
-
-### Track training progress on EC2
-- This goes in particular for the gpt2_tuner.py script, which writes a train.log file with the loss
-- Get Gnuplot on the EC2 instance with `sudo yum install gnuplot`
-- copy the file /dltraining/checkpoints/train.log to your current working directory. (Otherwise the file will be blocked during training)
-- Enter gnuplot
-    `gnuplot> set datafile separator ","; set terminal dumb; plot "train.log" using 1:2 title 'Training Loss'`
+### Markov chain outputs
+Here is a selection of sentences generated by the Markov chain model:  
   
-- This is what the result looks like:  
-    4 ++--------+---------+---------+--------+---------+---------+--------++  
-      +         +         +         +        +        Training Loss   A    +  
-  3.5 +AA                                                                 ++  
-      |  A                                                                 |  
-      |   A                                                                |  
-    3 ++                                                                  ++  
-      |                                                                    |  
-  2.5 ++    A                                                             ++  
-      |      A                                                             |  
-    2 ++   A                                                              ++  
-      |       A                                                            |  
-      |        A                                                           |  
-  1.5 ++                                                                  ++  
-      |         A                                                          |  
-    1 ++                                                                  ++  
-      |          AA                    A                          AA  A    |  
-      |              AAA         AA AAA  AAA AA  AA AA  A     A AA  AA     |  
-  0.5 ++           AA   A AAAAA A  A    A      AA  A  AA AAAAA A       A  ++  
-      +         +        A+    A    +       A+         +         +         +  
-    0 ++--------+---------+---------+--------+---------+---------+--------++  
-      0         10        20        30       40        50        60        70  
+- Its low hum reminds me of angelic saviors' wings. They see its wings. The sky requires it. But it is right to make sure it was right.
+- All da bugs here got wings!   (I love this one)
+- It may now be time for more chaotic violence.
+- Dreams are the path.
+- We bury our past to soil - until I've gnawed their natural magical device.
+- Supporting sun and sunny places. How would I kill the sky.  (I can only agree with this one - nice!)
 
-### Setup EC2 instance for inference with launch template
-At first, I used the same instance as for the training. But I noticed that there was no GPU utilization during training (> nvidia-smi).  
-The template was adjusted to use c5n.4xlarge (alternatively one of the c5a instances)
+Theses examples actually can make sense to a reader but they are extremely rare: to find them I searched 230 lines of output text.  
+I've seen this Markov chain model perform better on producing song lyrics. I could imagine that lyrics work better because of a more concise "sentence" structure and use of words.   
 
-### Setup an automatic spot instance fleet request for training:
-- Tutorial for using Amazon EC2 Spot Instances:  
-    https://aws.amazon.com/de/blogs/machine-learning/train-deep-learning-models-on-gpus-using-amazon-ec2-spot-instances/
+## The next evolutionary step: LSTM RNNs 
+The next models I tried were the long / short term memory recurrent neural networks (LSTM RNNs). These can still be trained locally (and I did for the prototyping) but only if you use a small number of epochs. A thorough training requires something more powerful than my laptop. Let's first look at the core parts of such a recurrent neural network in code.  
 
-- The first step will be to set up a dedicated EBS (elastic block store) volume to store data and logs. This is described in the section "Setup an EBS volume"
-- During training, I want the spot instance to have access to my datasets and checkpoints in the EBS volume I created in step 1. However, only volumes in the same Availability Zone as the instances can be attached to it. If the volume and the instance are in different Availability Zones, a new volume needs to be created using a snapshot of the volume stored in Amazon S3. 
-    ```bash
-    aws iam create-role \
-        --role-name DL-Training \
-        --assume-role-policy-document '{"Version":"2012-10-17","Statement":[{"Sid":"","Effect":"Allow","Principal":{"Service":"ec2.amazonaws.com"},"Action":"sts:AssumeRole"}]}'
-    ```
-- Next, create and attach a policy that grants the instance the following permissions:
-    Describe, create, attach and delete volumes
-    Create snapshots from volumes
-    Describe spot instances
-    Cancel spot fleet requests and terminate instances
-    ```bash
-    aws iam create-policy \
-        --policy-name ec2-permissions-dl-training  \
-        --policy-document file://ec2-permissions-dl-training.json
- 
-    aws iam attach-role-policy \
-        --policy-arn arn:aws:iam::<account_id>:policy/ec2-permissions-dl-training \
-        --role-name DL-Training
-    ```
-- The script checks with the volume and the instance are in the same Availability Zone. If they are in different Availability Zones, it first creates a point-in-time snapshot of the volume in Amazon S3. Once the snapshot is created, it deletes the volume and creates a new volume from the snapshot in the instance’s Availability Zone.
-- Next, adapt the spot fleet configuration file (spot_fleet_config.json) that includes target capacity (e.g. 1 instance), launch specifications for the instance, and the maximum price that you are willing to pay. Simple 1-GPU instances are g5.xlarge or p2.xlarge (a little more expensive). Use the correct key-pair-name and a security group that allows you to ssh into the instance.
-- To use the spot fleet Request, create an IAM fleet role by running the following commands:
-    ```bash
-    aws iam create-role \
-        --role-name DL-Training-Spot-Fleet-Role \
-        --assume-role-policy-document '{"Version":"2012-10-17","Statement":[{"Sid":"","Effect":"Allow","Principal":{"Service":"spotfleet.amazonaws.com"},"Action":"sts:AssumeRole"}]}'
+### How it works
+As mentioned above, if you check out [Create your first LSTM][create-first-lstm], the article also links to another one which summarize how LSTM RNNs work. All credit (especially for the code) goes to these authors. But I will do my best to give my own brief description here.  
 
-    aws iam attach-role-policy \
-         --policy-arn arn:aws:iam::aws:policy/service-role/AmazonEC2SpotFleetTaggingRole --role-name DL-Training-Spot-Fleet-Role
-    ```
-- You have to encode the user_data_script.sh with base64: 
-    ```bash
-    USER_DATA=`base64 user_data_script.sh -w0`
-    sed -i '' "s|base64_encoded_bash_script|$USER_DATA|g" spot_fleet_config.json 
-    ```
-- Submit the Spot fleet request `aws ec2 request-spot-fleet --spot-fleet-request-config file://spot_fleet_config.json`
-- Cancel the running spot fleet request by issuing `aws ec2 cancel-spot-fleet-requests`
+A recurrent neural network is a network that can process sequential data and "remember" past inputs - i.e. preceding inputs will affect the next predictions. Long Short-Term Memory RNNs are specifically designed to handle long-term dependencies. In an LSTM RNN, there are three main components: an input gate, a forget gate, and an output gate. These control the flow of information into and out of each "memory" cell. The input gate determines how much new information should be added to the cell state, while the forget gate determines how much of the previous cell state should be retained. The output gate determines how much of the current cell state should be output.
+
+One benefit of LSTM RNNs over normal RNNs is that they can adjust the weights of these gates during the training and find out on their own which long-term dependencies to look for in the data.
+
+In a long/short-term RNN, multiple LSTMs are typically stacked together to create a deep neural network. This allows the network to capture both short-term and long-term dependencies in the data. The outputs from the LSTMs at each time step are typically fed into a final output layer that produces the final prediction.
+
+## Switch to the cloud environment
+To prevent this article from growing too big, I have moved the whole part of setting up the AWS environment to [this post]({% post_url 2023-02-15-first-setup-in-aws-and-using-ec2-for-machine-learning-tasks %}). There you'll find details on things like creating the necessary IAM roles, moving your data to EBS volumes, or creating templates to launch your training jobs. But let's talk about more interesting stuff.
+
+### LSTM RNN outputs
+
 
 
 [karpathy-rnns]: http://karpathy.github.io/2015/05/21/rnn-effectiveness/

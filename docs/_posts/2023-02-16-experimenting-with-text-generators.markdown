@@ -68,7 +68,10 @@ df.to_csv(output_path_string)
 ```
 
 ## The simplest model
-A Markov chain is one of the simplest approaches to text generation. In simple terms, a Markov chain looks at the current word (or group of letters) and chooses the next word (or group of letters) with a certain probability. The probabilities for the next word in the sequence are calculated from a larger text corpus. Or in ML speak, the model is "fitted" on a training dataset (well, not with gradient descent but you know what I mean).
+A Markov chain is one of the simplest approaches to text generation. In simple terms, a Markov chain looks at the current word (or group of letters) and chooses the next word (or group of letters) with a certain probability. The probabilities for the next word in the sequence are calculated from a larger text corpus. Or we say, the model is "fitted" on a training dataset (well, not with gradient descent but you know what I mean).
+
+![Markov Chain](assets/images/experimenting-with-text-generators/markovchain.jpg)
+By Joxemai4 - Own work, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=10284158
 
 ### How it works
 Usually we speak of so called "*n*-gram" models, where *n* is the number of words that the model considers to predict the next word. Based on this mechanic, the generated text is very similar in style to the input text. The core functionality can be discussed with the following two functions (taken from [Building a lyrics generator with Markov chains][lyrics-with-markov])  
@@ -130,17 +133,42 @@ The next models I tried were the long / short term memory recurrent neural netwo
 ### How it works
 As mentioned above, if you check out [Create your first LSTM][create-first-lstm], the article also links to another one which summarize how LSTM RNNs work. All credit (especially for the code) goes to these authors. But I will do my best to give my own brief description here.  
 
-A recurrent neural network is a network that can process sequential data and "remember" past inputs - i.e. preceding inputs will affect the next predictions. Long Short-Term Memory RNNs are specifically designed to handle long-term dependencies. In an LSTM RNN, there are three main components: an input gate, a forget gate, and an output gate. These control the flow of information into and out of each "memory" cell. The input gate determines how much new information should be added to the cell state, while the forget gate determines how much of the previous cell state should be retained. The output gate determines how much of the current cell state should be output.
+A recurrent neural network is a network that can be used to generate a series of outputs, where each new output is influenced by the preceding inputs. They have an internal "state" which keeps changing with the sequence of inputs and acts just like a short-term memory. However, there is an issue with longer sequences: The internal state is not able to recall what happened at the beginning of a long sequence due to the well known vanishing gradient problem. This is where Long Short-Term Memory RNNs come into play. These were specifically designed to handle long-term dependencies. In an LSTM RNN, there is a simple RNN cell, a dedicated long-term memory cell, and three gates: an input gate, a forget gate, and an output gate. These control the flow of information into and out of each "memory" cell.  
+
+![LSTM](assets/images/experimenting-with-text-generators/lstm.png)
+By Guillaume Chevalier - File:The_LSTM_Cell.svg, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=109362147  
+
+The forget gate determines how much of the previous hidden state should be retained. The input gate determines whether the memory cell is updated and how much new information should be added to the memory cell state. A new cell state is created based on the output of the input and forget gates. Finally the output gate determines what the next hidden state should be from the newly calculated memory cell state, the previous hidden state, and the input data.
 
 One benefit of LSTM RNNs over normal RNNs is that they can adjust the weights of these gates during the training and find out on their own which long-term dependencies to look for in the data.
 
-In a long/short-term RNN, multiple LSTMs are typically stacked together to create a deep neural network. This allows the network to capture both short-term and long-term dependencies in the data. The outputs from the LSTMs at each time step are typically fed into a final output layer that produces the final prediction.
+In my experiments, I saw that usually, a single LSTM layer is not better than a Markov chain model. To achieve a better performance, I stacked 3 bidirectional LSTM layers. What bidirectional layers are is explained [here][keras-lstm-guide], but in brief, they allow the network to not only process a sequence from start to end but also backwards. This gives the model more awareness of the "entire" context arount a word (i.e. considering words before and after a certain word), where a regular LSTM would ignore everything that follows a given word.  This allows the network to capture both short-term and long-term dependencies in the data. The outputs from the LSTMs at each time step are typically fed into a final output layer that produces the final prediction.
 
 ## Switch to the cloud environment
 To prevent this article from growing too big, I have moved the whole part of setting up the AWS environment to [this post]({% post_url 2023-02-15-first-setup-in-aws-and-using-ec2-for-machine-learning-tasks %}). There you'll find details on things like creating the necessary IAM roles, moving your data to EBS volumes, or creating templates to launch your training jobs. But let's talk about more interesting stuff.
 
 ### LSTM RNN outputs
+The LSTM produces sentences such as:
 
+- The Conch will kill those whom once they loved.
+- His drafts are barely aware and reason. I regret feeding grounds mortals who have toucted the entrance 
+- When the spirit is just the best answers will endure.
+- For the lost time, a flower mage can find it had heard the recognize it, as never mistake it.
+- It reflects the structure that means no cave far are many way abomination of a defense.
+
+## Transformers
+...
+
+### How it works
+...
+
+### Transformer outputs
+Here is a selection of sentences generated by the Markov chain model:  
+
+- Two glowing red eyes and the rustling of the stones means that some people believe that they are the guardian spirits of the forest.
+- You steal it, I find it. You then buy it back again, and I'm back here in hell.
+- The one you see is just a diversion. There is no way around it. When you hit it, you break it. The trick is to drive it away from you.
+- The mycosynth created the first aliens.
 
 
 [karpathy-rnns]: http://karpathy.github.io/2015/05/21/rnn-effectiveness/
@@ -149,4 +177,4 @@ To prevent this article from growing too big, I have moved the whole part of set
 [lyrics-with-markov]: https://realpython.com/lyricize-a-flask-app-to-create-lyrics-using-markov-chains/  
 [create-first-lstm]: https://towardsai.net/p/deep-learning/create-your-first-text-generator-with-lstm-in-few-minutes  
 [tuning-gpt2]: https://towardsdatascience.com/how-to-fine-tune-gpt-2-for-text-generation-ae2ea53bc272  
-
+[keras-lstm-guide]: https://keras.io/guides/working_with_rnns/

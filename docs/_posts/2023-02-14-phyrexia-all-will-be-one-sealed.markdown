@@ -6,9 +6,9 @@ tags: MTG
 ---
 ![Rares from the event](/images/ONE-sealed-event.jpg)
 # A premiere
-This post is a premiere. It's about my first "real" experience with the trading card game *Magic: The Gathering*. At the time of writing this, I'm still a hopeless beginner, so don't expect a "guide" or anything. If you want to learn about the set or the format, there are plenty of good articles in places like Draftsim, MTG Arena Zone, or Star City Games.  
+This post is a premiere. It's about my first "real" experience with the trading card game *Magic: The Gathering*. At the time of writing this, I'm still a hopeless beginner, so don't expect a "guide" or anything. If you want to learn about the set or the format, there are plenty of good articles in places like [Card Game Base][cardgamebase], [Draftsim][draftsim], or [MTG Arena Zone][mtgazone].  
 
-A couple of days ago I attended my first *Sealed* event for the Prerelease of the set "Phyrexia: All Will Be One", and for me it was a really great experience. There were nice people who chatted with me, helped me out, gave me tips, suggested improvements for my deck, and above all were very patient with me. On the other hand, it was still a challenging experience due to the time restrictions for all phases of the event.
+A couple of days ago I attended my first *Sealed* event for the Prerelease of the set "Phyrexia: All Will Be One", and it was a great experience. There were nice people who chatted with me, helped me out, gave me tips, and above all were very patient with me. On the other hand, it was still a challenging experience due to the time restrictions for all phases of the event.
 
 # An overview of the format for beginners like me
 For those reading this who haven't figured out by now what I'm talking about, here is a little bit of background information: A *Sealed Event* is small tournament where each player receives 6 "booster" packs with random playing cards. Then you are given a limited amount of time to construct a deck of 40 cards by only using and combining the cards you received.
@@ -19,7 +19,7 @@ Throughout the tournament I played a series of best-of-three games with three op
 
 # Lessons learned
 - Splashing
-	- Splashing needs some more lands apart from fetchlands. I never played splashed decks before, so I never bothered to so some research on splashing. One bad choice was to include my signature card (1, 1R, 1G). In order to cast that card consistently on curve, I would have needed 9 mountains (for a 75% chance). A good article on why this was a bad idea can be found here: [To Splash or Not to Splash in Limited? on ChannelFireball.com][splashing-limited]
+	- Splashing needs some more lands apart from fetchlands. I never played splashed decks before, so I never bothered to so some research on splashing. One bad choice was to include my signature card (1, 1R, 1G). In order to cast that card consistently on curve, I would have needed 9 mountains (for a 75% chance). A good article on why this was a bad idea can be found here: [To Splash or Not to Splash in Limited?][splashing-limited]
 		- As a rule of thumb, you want to have 4-5 lands for 1-2 colored spells (with only one colored mana), to consistently cast a spell "on curve"
 		- Splash only for cards with high converted mana cost
 		- Splash only for single colored-cards
@@ -45,3 +45,6 @@ It was a fun experience, and I learned a lot. More than I would've learned playi
 
 
 [splashing-limited]: (https://strategy.channelfireball.com/all-strategy/mtg/channelmagic-articles/to-splash-or-not-to-splash-in-limited/)
+[cardgamebase]: (https://cardgamebase.com/strategy/)
+[draftsim]: (https://draftsim.com/)
+[mtgazone]: (https://mtgazone.com/strategy/)

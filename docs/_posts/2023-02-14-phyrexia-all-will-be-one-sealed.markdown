@@ -6,7 +6,7 @@ tags: MTG
 ---
 ![Rares from the event](/images/ONE-sealed-event.jpg)
 # A premiere
-This post is a premiere. It's about my first "real" experience with the trading card game *Magic: The Gathering*. At the time of writing this, I'm still a hopeless beginner, so don't expect a "guide" or anything. If you want to learn about the set or the format, there are plenty of good articles in places like [Card Game Base][cardgamebase], [Draftsim][draftsim], or [MTG Arena Zone][mtgazone].  
+This post is about my first "sealed" event of the game *Magic: The Gathering* (MTG). As with most deck building games, it's focus is on crafting a strategy, managing resources and dealing with uncertainties. MTG releases new sets of cards regularly, and the evend that I attended was about the set "Phyrexia: All will be one". As I'm still learning, don't expect a "guide" or anything. If you want to learn about this format, there are plenty of good articles in places like [Card Game Base][cardgamebase], [Draftsim][draftsim], or [MTG Arena Zone][mtgazone].  
 
 A couple of days ago I attended my first *Sealed* event for the Prerelease of the set "Phyrexia: All Will Be One", and it was a great experience. There were nice people who chatted with me, helped me out, gave me tips, and above all were very patient with me. On the other hand, it was still a challenging experience due to the time restrictions for all phases of the event.
 
@@ -41,7 +41,7 @@ Throughout the tournament I played a series of best-of-three games with three op
 - Keep the curve low. ONE was a pretty aggro set and I'm guilty of underestimating that. After the first two matches I realized that I had to replace a 5- and 6 drop with a 2- and 3-drop. Worked much better. 
 
 # Final words
-It was a fun experience, and I learned a lot. More than I would've learned playing MTG Arena for 3 months. There's simply no replacement for the real thing. Until next time!
+It was a fun experience, and I learned a lot. More than I would've learned playing MTG Arena for 3 months. So far, stay curious and keep learning!
 
 
 [splashing-limited]: (https://strategy.channelfireball.com/all-strategy/mtg/channelmagic-articles/to-splash-or-not-to-splash-in-limited/)

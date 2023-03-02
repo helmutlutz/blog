@@ -1,10 +1,13 @@
 ---
 layout: post
-title:  "Building a text generator on AWS"
+title:  "The Evolution of Text Generators"
 date:   2023-02-16 20:55:50 +0100
 tags: CloudServices MachineLearning
 ---
-# Transformers and the Cloud
+![Transformer](images/experimenting-with-text-generators/transformer-figure.jpg)
+Foto von [Jeffery Ho][jeffery-ho] auf [Unsplash][unsplash]
+    
+
 I started this project because I was curious about a sub-field of machine learning which is currently more hyped than quantum computing. Companies spend millions on this technology just because it is so versatile and applicable in our everyday lives. It's *language models* like the recently released ChatGPT.  
 Without having any prior experience in this domain, I saw two things that I was curious about:  
 - Lately the academic community as well as the industry switched from recurrent neural networks to so called *transformer* architectures. It seemed to be fairly straightforward to obtain one of these models pre-trained on a large text dataset, and then fine-tune it, such that the model is able to produce text in the same style as your training data (e.g. "write like Shakespeare"). So this is point number one that sparked my interest.  
@@ -15,7 +18,6 @@ That's basically why I wanted to come up with a project to bring these things to
   
 If you are interested in some articles on the topic, these are the ones that inspired me to do this project:  
 - [The Unreasonable Effectiveness of Recurrent Neural Networks][karpathy-rnns]
-- "Deep Faking" Political Twitter using Transfer learning and GPT-2; 2019  
 - [Deep Drumpf][deep-drumpf]
 - [Building a lyrics generator with markov chains][lyrics-with-markov]
 - [Create your first LSTM][create-first-lstm]
@@ -70,7 +72,7 @@ df.to_csv(output_path_string)
 ## The simplest model
 A Markov chain is one of the simplest approaches to text generation. In simple terms, a Markov chain looks at the current word (or group of letters) and chooses the next word (or group of letters) with a certain probability. The probabilities for the next word in the sequence are calculated from a larger text corpus. Or we say, the model is "fitted" on a training dataset (well, not with gradient descent but you know what I mean).
 
-![Markov Chain](assets/images/experimenting-with-text-generators/markovchain.jpg)
+![Markov Chain](images/experimenting-with-text-generators/markovchain.jpg)
   
 ### How it works
 Usually we speak of so called "*n*-gram" models, where *n* is the number of words that the model considers to predict the next word. Based on this mechanic, the generated text is very similar in style to the input text. The core functionality can be discussed with the following two functions (taken from [Building a lyrics generator with Markov chains][lyrics-with-markov])  
@@ -136,7 +138,7 @@ As mentioned above, if you check out [Create your first LSTM][create-first-lstm]
 
 A recurrent neural network is a network that can be used to generate a series of outputs, where each new output is influenced by the preceding inputs. They have an internal "state" which keeps changing with the sequence of inputs and acts just like a short-term memory. However, there is an issue with longer sequences: The internal state is not able to recall what happened at the beginning of a long sequence due to the well known vanishing gradient problem. This is where Long Short-Term Memory RNNs come into play. These were specifically designed to handle long-term dependencies. In an LSTM RNN, there is a simple RNN cell, a dedicated long-term memory cell, and three gates: an input gate, a forget gate, and an output gate. These control the flow of information into and out of each "memory" cell.  
 
-![LSTM](assets/images/experimenting-with-text-generators/lstm.png)
+![LSTM](images/experimenting-with-text-generators/lstm.png)
   
 The forget gate determines how much of the previous hidden state should be retained. The input gate determines whether the memory cell is updated and how much new information should be added to the memory cell state. A new cell state is created based on the output of the input and forget gates. Finally the output gate determines what the next hidden state should be from the newly calculated memory cell state, the previous hidden state, and the input data.
 The outputs from the LSTMs at each time step are typically fed into a final (dense) output layer that produces the final prediction.
@@ -222,7 +224,7 @@ def post_process_text(t):
     return t
 ```
   
-## Switch to the cloud environment
+### Switch to the cloud environment
 To prevent this article from growing too big, I have moved the whole part of setting up the AWS environment to [this post]({% post_url 2023-02-15-first-setup-in-aws-and-using-ec2-for-machine-learning-tasks %}). There you'll find details on things like creating the necessary IAM roles, moving your data to EBS volumes, or creating templates to launch your training jobs. But let's talk about more interesting stuff.
 
 ### LSTM RNN outputs
@@ -270,3 +272,5 @@ So far, stay curious and keep learning!
 [tuning-gpt2]: https://towardsdatascience.com/how-to-fine-tune-gpt-2-for-text-generation-ae2ea53bc272  
 [keras-lstm-guide]: https://keras.io/guides/working_with_rnns/
 [lstm-on-comedy]: https://sethmbcrider.com/papers/stares-at-burger-non-comittally-an-exploration-of-generative-comedy-scripts-and-machine-learning/
+[jeffery-ho]: https://unsplash.com/@jefferyho?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText
+[unsplash]: https://unsplash.com/de/fotos/ZtTI0BAxf2U?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText

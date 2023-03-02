@@ -4,8 +4,8 @@ title:  "The Evolution of Text Generators"
 date:   2023-02-16 20:55:50 +0100
 tags: CloudServices MachineLearning
 ---
-![Transformer](images/experimenting-with-text-generators/transformer-figure.jpg)
-Foto von [Jeffery Ho][jeffery-ho] auf [Unsplash][unsplash]
+![Transformer](/images/experimenting-with-text-generators/transformer-figure.jpg)
+*Image by [Jeffery Ho][jeffery-ho] on [Unsplash][unsplash]*
     
 
 I started this project because I was curious about a sub-field of machine learning which is currently more hyped than quantum computing. Companies spend millions on this technology just because it is so versatile and applicable in our everyday lives. It's *language models* like the recently released ChatGPT.  
@@ -72,7 +72,7 @@ df.to_csv(output_path_string)
 ## The simplest model
 A Markov chain is one of the simplest approaches to text generation. In simple terms, a Markov chain looks at the current word (or group of letters) and chooses the next word (or group of letters) with a certain probability. The probabilities for the next word in the sequence are calculated from a larger text corpus. Or we say, the model is "fitted" on a training dataset (well, not with gradient descent but you know what I mean).
 
-![Markov Chain](images/experimenting-with-text-generators/markovchain.jpg)
+![Markov Chain](/images/experimenting-with-text-generators/markovchain.jpg)
   
 ### How it works
 Usually we speak of so called "*n*-gram" models, where *n* is the number of words that the model considers to predict the next word. Based on this mechanic, the generated text is very similar in style to the input text. The core functionality can be discussed with the following two functions (taken from [Building a lyrics generator with Markov chains][lyrics-with-markov])  
@@ -138,7 +138,7 @@ As mentioned above, if you check out [Create your first LSTM][create-first-lstm]
 
 A recurrent neural network is a network that can be used to generate a series of outputs, where each new output is influenced by the preceding inputs. They have an internal "state" which keeps changing with the sequence of inputs and acts just like a short-term memory. However, there is an issue with longer sequences: The internal state is not able to recall what happened at the beginning of a long sequence due to the well known vanishing gradient problem. This is where Long Short-Term Memory RNNs come into play. These were specifically designed to handle long-term dependencies. In an LSTM RNN, there is a simple RNN cell, a dedicated long-term memory cell, and three gates: an input gate, a forget gate, and an output gate. These control the flow of information into and out of each "memory" cell.  
 
-![LSTM](images/experimenting-with-text-generators/lstm.png)
+![LSTM](/images/experimenting-with-text-generators/lstm.png)
   
 The forget gate determines how much of the previous hidden state should be retained. The input gate determines whether the memory cell is updated and how much new information should be added to the memory cell state. A new cell state is created based on the output of the input and forget gates. Finally the output gate determines what the next hidden state should be from the newly calculated memory cell state, the previous hidden state, and the input data.
 The outputs from the LSTMs at each time step are typically fed into a final (dense) output layer that produces the final prediction.
@@ -186,6 +186,27 @@ def compileModel(vocabulary, batch_size):
     model.compile(optimizer="rmsprop", loss=loss)
 
     return model
+```
+  
+Above function will yield the following architecture:
+
+```bash
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ embedding (Embedding)       (1, None, 256)            23040     
+                                                                 
+ lstm (LSTM)                 (1, None, 512)            1574912   
+                                                                 
+ lstm_1 (LSTM)               (1, None, 512)            2099200   
+                                                                 
+ dense (Dense)               (1, None, 90)             46170     
+                                                                 
+=================================================================
+Total params: 3,743,322
+Trainable params: 3,743,322
+Non-trainable params: 0
 ```
   
 Additionally I used these two functions for text pre- and post-processing (adapted from [here][lstm-on-comedy]):
@@ -238,6 +259,35 @@ The LSTM produces sentences such as:
   
 Sentences like these were equally rare as in the Markov chain model but with some tweaking of the temperature parameter (which you will have in the text generation function) you can achieve slightly better results. However, even with fine tuning the results are far from where I thought you would get with RNNs, so I'm wondering whether something in my pipeline could still be improved. On the other hand, when looking closely at all the examples that come up in blogs and tutorials, the quality of text that is produced is really not that different.
   
+A side note: It's always useful to visualize the training process. You can do that by installing gnuplot on the EC2 instance, and make a rough plot directly in the console:
+  
+```bash
+gnuplot> set datafile separator ","; set terminal dumb; plot "train.log" using 1:2 title 'Training Loss'`
+
+  3.5 ++-----+------+------+------+------+-----+------+------+------+-----++
+      +      +      +      +      +      +     +      Training Loss + A    +
+      A                                                                    |
+    3 ++                                                                  ++
+      |                                                                    |
+  2.5 ++                                                                  ++
+      A                                                                    |
+      |                                                                    |
+    2 +A                                                                  ++
+      |AA                                                                  |
+      | AA                                                                 |
+  1.5 ++ AAA                                                              ++
+      |    AAAAA                                                           |
+      |        AAAAAAAAAA                                                  |
+    1 ++                AAAAAAAAAA                                        ++
+      |                          AAAAAAAAAA                                |
+  0.5 ++                                  AAAAAAAAAAAAAAAA                ++
+      |                                                   AAAAAAAAAAAAAAAAAA
+      +      +      +      +      +      +     +      +      +      +      +
+    0 ++-----+------+------+------+------+-----+------+------+------+-----++
+      0      20     40     60     80    100   120    140    160    180    200
+
+```
+  
 [TODO] Try bidirectional LSTM layers. What bidirectional layers are is explained [here][keras-lstm-guide], but in brief, they allow the network to not only process a sequence from start to end but also backwards. This gives the model more awareness of the "entire" context arount a word (i.e. considering words before and after a certain word), where a regular LSTM would ignore everything that follows a given word.  
 To make them work, you need to implement a preprocessing step called "tokenization" - so you're not generating text on the character-level with bidirectional LSTMs, but on the word-level. 
 
@@ -260,7 +310,9 @@ Here is a selection of sentences generated by the Markov chain model:
 - When you hit it, you break it. The trick is to drive it away from you.
 - The mycosynth created the first aliens.
   
-GPT2 produces a much better quality than the previous approaches (well, that was expected). You still have to cherry-pick good sentences, but they occur more often. I still have a couple of TODO's for this post, but for now, I'll leave it at that. I hope that some of my learnings are useful to one or the other visitor - and if it's only for a collection of links to other nice articles.
+GPT2 produces a much better quality than the previous approaches (well, that was expected). You still have to cherry-pick good sentences, but they occur more often. 
+  
+I still have a couple of TODO's for this post, but for now, I'll leave it at that. I hope that some of my learnings are useful to one or the other visitor - and if it's only for a collection of links to other nice articles.
 So far, stay curious and keep learning!
 
 

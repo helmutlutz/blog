@@ -2,7 +2,7 @@
 layout: post
 title:  "The Evolution of Text Generators"
 date:   2023-02-16 20:55:50 +0100
-tags: CloudServices MachineLearning
+categories: CloudServices MachineLearning
 ---
 ![Transformer](/images/experimenting-with-text-generators/transformer-figure.jpg)
 *Image by [Jeffery Ho][jeffery-ho] on [Unsplash][unsplash]*

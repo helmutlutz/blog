@@ -37,6 +37,37 @@ body {
   width: 100%;
 }
 
+.column-2 {
+  float: left;
+  width: 40%;
+  padding: 10px;
+  margin:20px;
+  height: 250px;
+}
+
+.tile-1 {
+  background-color:#f5f5f5;
+}
+
+.tile-2 {
+  background-color:#f5f5f5;
+}
+
+.tile-text {
+  text-align:center;
+  font-size:50px;
+}
+
+/* Hover classes for individual project boxes */
+
+.tile-1:hover {
+  background-color:#7DF9FF;
+}
+
+.tile-2:hover {
+   background-color: #7DF9FF;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: -system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   color: $darkerGray;
@@ -706,7 +737,21 @@ Modules - reusable parts of our design
   font-size: 14.5px;
   padding: 2px 13px;
   border: none;
-  background-color: #4CAF50;
+  background-color: #7DF9FF;
+  border-radius: 50px;
+  color: #fff;
+}
+
+.post-categories {
+  text-align: center;
+  line-height: 35px;
+}
+
+.post-categories a {
+  font-size: 14.5px;
+  padding: 2px 13px;
+  border: none;
+  background-color: #7DF9FF;
   border-radius: 50px;
   color: #fff;
 }

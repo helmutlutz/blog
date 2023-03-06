@@ -2,7 +2,7 @@
 layout: post
 title:  "Phyrexia: All will be one - Sealed"
 date:   2023-02-14 20:55:50 +0100
-tags: MTG
+categories: MTG
 ---
 ![Rares from the event](images/phyrexia-all-will-be-one-sealed/ONE-sealed-event.jpg)
 # A premiere
@@ -15,7 +15,7 @@ For those reading this who haven't figured out by now what I'm talking about, he
 
 The objective is to strike the right balance between creature-spells, instant-spells, sorceries, etc. while also building in some degree of synergy between the cards. As far as my experience goes, the Sealed format is a great way to learn how to use limited resources, to solve complex "optimization" problems, and to try new strategies and card mechanics.
 
-Throughout the tournament I played a series of best-of-three games with three opponents. That means you typically play 9 games unless some games take too long. At the end, your stats are compared in a leaderboard and you get prizes in the form of booster packs. I mentioned already that I was a total beginner but where I played they even handed out a booster pack for each at the end of the leaderboard - what a nice welcome present to the MTG community :P
+Throughout the tournament I played a series of best-of-three games with three opponents. That means you typically play 9 games unless some games take too long. At the end, your stats are compared in a leaderboard, and you get prizes in the form of booster packs. I mentioned already that I was a total beginner but where I played, they even handed out a booster pack for each at the end of the leaderboard - what a nice welcome present to the MTG community :P
 
 # Lessons learned
 - Splashing
@@ -38,10 +38,10 @@ Throughout the tournament I played a series of best-of-three games with three op
 
 - Keep in mind your cards with flashback which are in the graveyard. Wouldn't have mattered, but I still realized twice that I forgot about them.
 
-- Keep the curve low. ONE was a pretty aggro set and I'm guilty of underestimating that. After the first two matches I realized that I had to replace a 5- and 6 drop with a 2- and 3-drop. Worked much better. 
+- Keep the curve low. ONE was a quite aggressive set and I'm guilty of underestimating that. After the first two matches I realized that I had to replace a 5- and 6 drop with a 2- and 3-drop. Worked much better. 
 
 # Final words
-It was a fun experience, and I learned a lot. More than I would've learned playing MTG Arena for 3 months. So far, stay curious and keep learning!
+All in all, it was a fun experience, and I learned a lot. More than I would've learned playing MTG Arena for 3 months. So far, stay curious and keep learning!
 
 
 [splashing-limited]: (https://strategy.channelfireball.com/all-strategy/mtg/channelmagic-articles/to-splash-or-not-to-splash-in-limited/)

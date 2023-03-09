@@ -403,12 +403,14 @@ nav {
 }
 
 .posts > .post:last-child {
+  clear: both;
   padding-bottom: 1em;
   border-bottom: none;
 }
 
 .post {
   blockquote {
+    clear: both;
     margin: 1.8em .8em;
     /*border-left: 2px solid $gray;*/
     padding: 0.1em 1em;
@@ -773,6 +775,7 @@ Modules - reusable parts of our design
 }
 
 .pagination {
+  clear: both;
   text-align: center;
 }
 

@@ -39,10 +39,10 @@ body {
 
 .column-2 {
   float: left;
-  width: 100%;
+  width: 40%;
   padding: 10px;
-  margin: 20px 0;
-  height: 30%;
+  margin: 20px;
+  height: 20%;
 }
 
 .tile-1 {
@@ -397,17 +397,20 @@ nav {
 //
 
 .posts > .post {
+  width: 100%;
   padding-bottom: 2em;
   border-bottom: 1px solid $lightGray;
 }
 
 .posts > .post:last-child {
+  width: 100%;
   padding-bottom: 1em;
   border-bottom: none;
 }
 
 .post {
   blockquote {
+    width: 100%;
     margin: 1.8em .8em;
     /*border-left: 2px solid $gray;*/
     padding: 0.1em 1em;

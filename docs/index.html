@@ -2,23 +2,23 @@
 layout: default
 ---
 <h1 >The Balance</h1>
-<div class="column-2 tile-1">
-  <a href="{{ site.baseurl }}/categories-work">
+<a href="{{ site.baseurl }}/categories-work">
+  <div class="column-2 tile-1">
     <h2 class="tile-text">WORK</h2>
     <div class="tile-text">
       To the archive of technical/work-related posts
     </div>
-  </a>
-</div>
+  </div>
+</a>
 
-<div class="column-2 tile-2">
-  <a href="{{ site.baseurl }}/categories-life">
+<a href="{{ site.baseurl }}/categories-life">
+  <div class="column-2 tile-2">
     <h2 class="tile-text">LIFE</h2>
     <div class="tile-text">
       To the archive for everything else
     </div>
-  </a>
-</div>
+  </div>
+</a>
 
 <div class="posts">
   {% for post in paginator.posts %}

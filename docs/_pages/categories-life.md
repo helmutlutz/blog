@@ -6,8 +6,8 @@ title: Categories
 
 
 <div id="archives">
-{% assign work_categories = site.categories | where_exp: "category", "category[1] == 'MTG'" %}
-{% for category in work_categories %}
+{% assign life_categories = site.categories | where_exp: "category", "category[1] == 'MTG'" %}
+{% for category in life_categories %}
   <div class="archive-group">
     {% capture category_name %}{{ category | first }}{% endcapture %}
     <div id="#{{ category_name | slugize }}"></div>

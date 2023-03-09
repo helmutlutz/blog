@@ -6,7 +6,7 @@ categories: MTG
 ---
 ![Rares from the event](images/phyrexia-all-will-be-one-sealed/ONE-sealed-event.jpg)
 # A premiere
-This post is about my first "sealed" event of the game *Magic: The Gathering* (MTG). As with most deck building games, it's focus is on crafting a strategy, managing resources and dealing with uncertainties. MTG releases new sets of cards regularly, and the evend that I attended was about the set "Phyrexia: All will be one". As I'm still learning, don't expect a "guide" or anything. If you want to learn about this format, there are plenty of good articles in places like [Card Game Base][cardgamebase], [Draftsim][draftsim], or [MTG Arena Zone][mtgazone].  
+This post is about my first "sealed" event of the game *Magic: The Gathering* (MTG). As with most deck building games, it's focus is on crafting a strategy, managing resources and dealing with uncertainties. MTG releases new sets of cards regularly, and the event that I attended was about the set "Phyrexia: All will be one". As I'm still learning, don't expect a "guide" or anything. If you want to learn about this format, there are plenty of good articles in places like [Card Game Base][cardgamebase], [Draftsim][draftsim], or [MTG Arena Zone][mtgazone].  
 
 A couple of days ago I attended my first *Sealed* event for the Prerelease of the set "Phyrexia: All Will Be One", and it was a great experience. There were nice people who chatted with me, helped me out, gave me tips, and above all were very patient with me. On the other hand, it was still a challenging experience due to the time restrictions for all phases of the event.
 
@@ -25,10 +25,10 @@ Throughout the tournament I played a series of best-of-three games with three op
 		- Splash only for single colored-cards
 		- Splash only for really good removal spells, or really powerful finishers.
 		- If your main color only has cards with 2C, 3C, 4C, and/or 4CC, take 8 lands. If it has cards with C, 1C, or 3CC take 9 lands. If you have 1CC and/or 2CC spells, better go to 10 lands.
-		- From all of this follows: avoid splashing in an Aggro deck or when you have double-colored spells
+		- From all of this follows: avoid splashing in an aggressive deck or when you have double-colored spells
 		- Avoid 7-7-3 Mana Bases. Instead, use multiple dual-lands or mana fixers along with a single land of the splash color to not harm the consistency of your main colors.
 	- Fetchlands, or cards that fetch you a land when they come into play, are not only important in case you are splashing, but also when you have cards that require multiple mana sources of one color
-	- Some notes on "Evolving Wilds" (which I got a lot from Midnight Hunt): The main problem with Evolving Wilds is the land comes into play tapped, making it the worst of the fetchlands. In an Aggro deck, you cannot afford to waste a single turn by waiting for the right color. If you play Control, you can compensate for that by playing enough disruptors, until your big threats are on the board.
+	- Some notes on "Evolving Wilds" (which I got a lot from Midnight Hunt): The main problem with Evolving Wilds is the land comes into play tapped, making it the worst of the fetchlands. In an aggressive deck, you cannot afford to waste a single turn by waiting for the right color. If you play Control, you can compensate for that by playing enough disruptors, until your big threats are on the board.
 
 - The premium promo card: This is a card which is included in the prerelease pack. What I've heard was that even experienced players fall into the trap of getting too fixated on this card and try to accommodate it in the deck when they shouldn't. Must be something psychological. Not surprising that I also fell for this one and, for the reasons given in the previous point about splashing, it made the deck weaker than it would be.
 

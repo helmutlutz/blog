@@ -2,7 +2,7 @@
 layout: post
 title:  "Setting up a Docker environment"
 date:   2023-01-06 15:55:50 +0100
-categories: SetupNotes CloudServices
+categories: SetupNotes CloudEngineering
 ---
 # Setting up a Docker environment, locally and on AWS
 This is rather a collection of notes/learnings than a "post". I started with this documentation when I was in the preparation for my project about building text generators. Since I knew that I wanted to finally deploy (or train) on AWS, I thought it might be a good idea to use an environment which I could simply transfer to the cloud. Docker seemed to be such an environment, so I started setting it up locally and also experimented with transferring it to EC2 instances in AWS. 

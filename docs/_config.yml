@@ -63,6 +63,7 @@ url: "https://www.scrycode.de" # the base hostname & protocol for your site, e.g
 
 permalink: /:title/
 
+excerpt_separator: <!readmore>
 # The release of Jekyll Now that you're using
 version: v1.2.0
 

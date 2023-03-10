@@ -2,8 +2,10 @@
 layout: post
 title:  "First setup in AWS and using EC2 for machine learning tasks"
 date:   2023-02-15 20:55:50 +0100
-categories: CloudEngineering MachineLearning
+category: Work
+tags: CloudEngineering MachineLearning
 ---
+<!readmore>
 Just a collection of notes which I took when setting up my environment in AWS and creating templates to automatically launch training jobs.
 
 # Step by step setup of your AWS environment

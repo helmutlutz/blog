@@ -2,13 +2,15 @@
 layout: post
 title:  "The Evolution of Text Generators"
 date:   2023-02-16 20:55:50 +0100
-categories: CloudEngineering MachineLearning
+category: Work
+tags: CloudEngineering MachineLearning
 ---
 ![Transformer](/images/experimenting-with-text-generators/transformer-figure.jpg)
 *Image by [Jeffery Ho][jeffery-ho] on [Unsplash][unsplash]*
-    
+  
+I started this project because I was curious about a sub-field of machine learning which is currently more hyped than quantum computing. Companies spend millions on this technology just because it is so versatile and applicable in our everyday lives. Three words: *Large Language Models*.  
+<!readmore>
 
-I started this project because I was curious about a sub-field of machine learning which is currently more hyped than quantum computing. Companies spend millions on this technology just because it is so versatile and applicable in our everyday lives. It's *language models* like the recently released ChatGPT.  
 Without having any prior experience in this domain, I saw two things that I was curious about:  
 - Lately the academic community as well as the industry switched from recurrent neural networks to so called *transformer* architectures. It seemed to be fairly straightforward to obtain one of these models pre-trained on a large text dataset, and then fine-tune it, such that the model is able to produce text in the same style as your training data (e.g. "write like Shakespeare"). So this is point number one that sparked my interest.  
 - Second, I saw some opportunities to explore a new topic which was very relevant for my daily work: *Cloud services*. Cloud services like the ones you get from Amazon Web Services (AWS), Microsoft Azure, or Google Cloud Platform come handy when you want to train and run these language models. In the cloud, it is simple to rent hardware you would never buy privately. I think for the entire project I spent something in the order of 30 €, which is little given the machines that I used. If you just want to play around, I believe that Google Colab or Kaggle Notebooks are your best options - you can use a GPU or TPU for quite some time without charge. My company has recently moved to the AWS ecosystem, so that simplifies the choice for me.  

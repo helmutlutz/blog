@@ -2,9 +2,12 @@
 layout: post
 title:  "Phyrexia: All will be one - Sealed"
 date:   2023-02-14 20:55:50 +0100
-categories: MTG
+category: Life
+tags: MTG
 ---
 ![Rares from the event](images/phyrexia-all-will-be-one-sealed/ONE-sealed-event.jpg)
+<!readmore>
+
 # A premiere
 This post is about my first "sealed" event of the game *Magic: The Gathering* (MTG). As with most deck building games, it's focus is on crafting a strategy, managing resources and dealing with uncertainties. MTG releases new sets of cards regularly, and the event that I attended was about the set "Phyrexia: All will be one". As I'm still learning, don't expect a "guide" or anything. If you want to learn about this format, there are plenty of good articles in places like [Card Game Base][cardgamebase], [Draftsim][draftsim], or [MTG Arena Zone][mtgazone].  
 

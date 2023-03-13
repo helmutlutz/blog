@@ -5,8 +5,8 @@ date:   2023-02-16 20:55:50 +0100
 category: Work
 tags: CloudEngineering MachineLearning
 ---
-![Transformer](/images/experimenting-with-text-generators/transformer-figure.jpg)
-*Image by [Jeffery Ho][jeffery-ho] on [Unsplash][unsplash]*
+![Kitchentable Magic](/images/experimenting-with-text-generators/kitchentable-magic.jpg)
+*This image was created with the assistance of DALL·E 2*
   
 I started this project because I was curious about a sub-field of machine learning which is currently more hyped than quantum computing. Companies spend millions on this technology just because it is so versatile and applicable in our everyday lives. Three words: *Large Language Models*.  
 <!readmore>

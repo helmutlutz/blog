@@ -8,7 +8,7 @@ tags: CloudEngineering MachineLearning
 <!readmore>
 Just a collection of notes which I took when setting up my environment in AWS and creating templates to automatically launch training jobs.
 
-# Step by step setup of your AWS environment
+## Step by step setup of your AWS environment
 - Create an AWS account
 - Follow this tutorial to create an administrator IAM user and user group (console):
     https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html
@@ -19,7 +19,7 @@ Just a collection of notes which I took when setting up my environment in AWS an
     `aws configure`
     Enter the Access Key ID, the Secret Access Key (you got these when creating the Administrator User in "Setup of AWS") and the default region (eu-central-1), output can be set to json.
 
-# Setup of an EC2 instance for hosting
+## Setup of an EC2 instance for hosting
 - Follow this tutorial to set up a micro-instance for hosting: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html
 - It is important to create and store a Key-Pair (`.pem` file). You'll need this to ssh to the instance.
 - Edit the inbound rules in your security group to allow SSH on port 22 from **your current IP**.
@@ -35,7 +35,7 @@ Just a collection of notes which I took when setting up my environment in AWS an
     exit
     ```
 
-# Setup an EBS volume
+## Setup an EBS volume
 - Data transfers will be managed with a general purpose instance. You can create it with the CLI as follows:
     ```bash
     aws ec2 run-instances \
@@ -90,7 +90,7 @@ Just a collection of notes which I took when setting up my environment in AWS an
     ```
 - **Shortcut**: Once the EBS volume exists, you can use the launch template `user_data_script_file_management.sh`, which automates the process of starting an instance and mounting the volume for you. Just edit the security group's inbound rules and the instance is ready for ssh/scp access.  
 
-# Setup EC2 instance for training with launch template
+## Setup EC2 instance for training with launch template
 - Reference: Tutorial for automatically attaching a persistent secondary EBS volume to a new EC2 Linux Spot Instance at boot
     https://aws.amazon.com/premiumsupport/knowledge-center/ec2-linux-spot-instance-attach-ebs-volume/?nc1=h_ls
 
@@ -137,7 +137,7 @@ Just a collection of notes which I took when setting up my environment in AWS an
     - Transfer the docker image via the t2.micro instance into the EBS volume
     - Edit the user data script so that it spins up the docker container
 
-# Track training progress on EC2
+## Track training progress on EC2
 - This goes in particular for the gpt2_tuner.py script, which writes a train.log file with the loss
 - Get Gnuplot on the EC2 instance with `sudo yum install gnuplot`
 - copy the file /dltraining/checkpoints/train.log to your current working directory. (Otherwise the file will be blocked during training)

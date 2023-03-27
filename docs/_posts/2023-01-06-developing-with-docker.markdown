@@ -7,10 +7,10 @@ tags: SetupNotes CloudEngineering
 ---
 <!readmore>
 
-# Setting up a Docker environment, locally and on AWS
+## Setting up a Docker environment, locally and on AWS
 This is rather a collection of notes/learnings than a "post". I started with this documentation when I was in the preparation for my project about building text generators. Since I knew that I wanted to finally deploy (or train) on AWS, I thought it might be a good idea to use an environment which I could simply transfer to the cloud. Docker seemed to be such an environment, so I started setting it up locally and also experimented with transferring it to EC2 instances in AWS. 
 
-# Developing code locally with VScode and a Docker container
+## Developing code locally with VScode and a Docker container
 - Prerequisites: 
     - Docker and WSL installed  
     - Have the `Remote - Containers` Extension installed in VScode  
@@ -23,7 +23,7 @@ This is rather a collection of notes/learnings than a "post". I started with thi
     Go to Preferences/Settings and search for "black path". You have to set the path to "/root/.local/bin/black". I found out by manually trying to install black with pip under root, that the path is somewhere in /root/.local/lib. A quick search of /root/.local/bin showed that black is located there.
 
 
-# Packaging a Docker image for AWS
+## Packaging a Docker image for AWS
 - Each of the folders has its own Dockerfile. For example the folder `/backend/model_builder`
 - cd into this folder and run:  
     ```bash
@@ -39,7 +39,7 @@ This is rather a collection of notes/learnings than a "post". I started with thi
     ```
 
 
-# Setting up a Docker image on an EC2 instance  
+## Setting up a Docker image on an EC2 instance  
 - **Note**: I haven't tested a container environment for the actual training of the text generators. It was unclear to me if GPUs could be accessed from the container and root-installing the environment simply seemed more efficient.  
 - This section requires that you completed the sections "Setup an EBS volume" and "Packaging a docker image" 
 - On the EC2 instance, run the following commands (setting access token environment variables are optional - I used them to access the Twitter API):  
@@ -58,7 +58,7 @@ This is rather a collection of notes/learnings than a "post". I started with thi
     ```
 
 
-# Connecting VScode to the docker container on EC2
+## Connecting VScode to the docker container on EC2
 - Using these tutorials:  
     - [VS Code remote overview][vscode-remote]  
     - [VS Code SSH tutorial][vscode-ssh]  

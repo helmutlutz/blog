@@ -7,18 +7,17 @@ tags: MTG
 ---
 ![Rares from the event](/images/phyrexia-all-will-be-one-sealed/ONE-sealed-event.jpg)
 
-# A premiere
 Have you ever attended a *Sealed* event for Magic: The Gathering (MTG)? If you're unfamiliar with the game, a sealed event is a type of tournament where players are given a set number of cards and have to build a deck from them on the spot. Recently, I had the opportunity to attend my first sealed event for the newest MTG set, "Phyrexia: All will be one". While I'm still relatively new to the game, the experience was both exciting and challenging.  
 <!readmore>
 
 In this blog post, I'll share my thoughts on the event, the set, and some of the lessons I went home with. Keep in mind, this won't be a guide per se, but rather a personal reflection on my first sealed experience. If you're interested in learning more about the format, there are plenty of resources available online, such as [Card Game Base][cardgamebase], [Draftsim][draftsim], or [MTG Arena Zone][mtgazone].
 
-# An overview of the format for beginners like me
+## An overview of the format for beginners like me
 As with most deck-building games, the objective is to strike the right balance between creature-spells, instant-spells, sorceries, etc. while also achieving some degree of synergy between the cards. As far as my experience goes, the Sealed format is a great way to learn how to use limited resources, to try new strategies and card mechanics, and above all to have fun with the new set of cards.
 
 Throughout the tournament I played a series of best-of-three games with three opponents. That means you typically play 9 games unless some games take too long. At the end, your stats are compared in a leaderboard, and you get prizes in the form of booster packs. I mentioned already that I was a total beginner but where I played, they even handed out a booster pack for each at the end of the leaderboard - what a nice welcome present to the MTG community :P
 
-# Lessons learned
+## Lessons learned
 - Splashing
 	- Splashing needs some more lands apart from fetchlands. I never played splashed decks before, so I never bothered to so some research on splashing. One bad choice was to include my signature card (1, 1R, 1G). In order to cast that card consistently on curve, I would have needed 9 mountains (for a 75% chance). A good article on why this was a bad idea can be found here: [To Splash or Not to Splash in Limited?][splashing-limited]
 		- As a rule of thumb, you want to have 4-5 lands for 1-2 colored spells (with only one colored mana), to consistently cast a spell "on curve"
@@ -41,7 +40,7 @@ Throughout the tournament I played a series of best-of-three games with three op
 
 - Keep the curve low. ONE was a quite aggressive set and I'm guilty of underestimating that. After the first two matches I realized that I had to replace a 5- and 6 drop with a 2- and 3-drop. Worked much better. 
 
-# Final words
+## Final words
 All in all, it was a fun experience, and I learned a lot. More than I would've learned playing MTG Arena for 3 months. So far, stay curious and keep learning!
 
 

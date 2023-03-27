@@ -11,7 +11,7 @@ This is just a plain list of steps that I followed to get this site up and runni
 - Starting from scratch on Windows, I followed this guide for the Jekyll installation: [Jekyll installation guide][jekyll-installation]
 - The tutorial in [Github pages guide][ghpages-setup] describe how to set up the repostiory and how to create a site with Jekyll
 
-# Issues
+## Issues
 - Running the page locally did not quite work as in the guide above, you have to add webrick in between: 
     ```bash
     bundle install
@@ -25,7 +25,7 @@ This is just a plain list of steps that I followed to get this site up and runni
     url: "https://helmutlutz.github.io" # the base hostname & protocol for your site, e.g. http://example.com
     ```
 
-# Using a template without Gemfile
+## Using a template without Gemfile
 In cases, where you simply want to try different styles for the website, or when you are debugging something, you don't want to wait everytime until github finishes the deployment process. However, when you start with a template which for some reason doesn't come with a Gemfile, you cannot deploy the site locally. The good news is, that you can follow this [deployment guide][local-deployment] to create your own Gemfile.
 - Navigate to the folder of the blog in the Git-Bash console, and use these commands:
 ```bash
@@ -51,7 +51,7 @@ plugins:
 ```
 - Finally you can start serving locally with `bundle exec jekyll serve`
 
-# Configuring a custom domain for this blog
+## Configuring a custom domain for this blog
 - Buy a custom domain from one of the large DNS providers
 - In your provider account, find the domain and go to Domain settings and `Manage DNS`
 - Add 4 `A` records (i.e. edit the first that is already there and add 3 more):

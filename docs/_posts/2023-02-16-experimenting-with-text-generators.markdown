@@ -6,7 +6,7 @@ category: Work
 tags: CloudEngineering MachineLearning
 ---
 ![Kitchentable Magic](/images/experimenting-with-text-generators/kitchentable-magic.jpg)
-*This image was created with the assistance of DALL·E 2*
+*"Multiverse Kitchen Table" (this image was created with the assistance of DALL·E 2)*
   
 I started this project because I was curious about a sub-field of machine learning which is currently more hyped than quantum computing. Companies spend millions on this technology just because it is so versatile and applicable in our everyday lives. Three words: *Large Language Models*.  
 <!readmore>
@@ -297,11 +297,174 @@ To make them work, you need to implement a preprocessing step called "tokenizati
 While LSTMs have been very successful in processing sequential data, they were computationally expensive and still struggled with very long sequences. In 2017, a radically new type of neural network was introduced: the transformer. Since then, they have become increasingly popular for language processing tasks. Unlike LSTMs, which process sequential data one step at a time, transformers can process entire sequences of inputs in parallel. They do this by using self-attention mechanisms to learn contextual relationships between all of the inputs in the sequence. This allows transformers to capture long-range dependencies more efficiently than LSTMs and it has made them particularly effective for tasks such as language translation and language modeling.  
 
 ### How it works
-For this project I used GPT-2, which stands for "Generative Pre-trained Transformer 2". It is a type of neural network that has been pre-trained on a large corpus of text data using unsupervised learning techniques. This means that it has learned to predict the next word in a sequence of text given the preceding words, without any explicit labeling or annotation of the data.
+For this project I used GPT-2, which stands for "Generative Pre-trained Transformer 2". So how do these Cybertron things actually work? In regular sequence to sequence models, you have one *Encoder* which takes in and processes the input sequence of words, and one *Decoder* which uses the hidden state (--> RNNs) of the encoder to produce an output sequence. A *Transformer* has not one of each but a stack of several encoders as well as several decoders. The last encoder of the stack passes it's output to each of the decoders. Each encoder is composed of a *Self-Attention* layer and a feedforward Neural Network. Self-attention is a mechanism, which allows the encoder to embed information about surrounding, and presumably relevant words, into the vector representation of each word it processes.
+  
+The decoder is very similar to the encoder, but between self-attention and feedforward neural network, there is an *Encoder-Decoder Attention* layer. This allows the decoder to pay attention only to certain parts of the input sequence while generating a new word. Another difference to the encoders is that the attention mechanism is only allowed to look at earlier positions in the sequence (which in practice is accomplished by masking the internal matrices). I won't get into other interesting details here (e.g. the multi-headed attention), but a great explainer can be found in [Jay Alammar's blog][jalammar-transformer].  
+  
+Regarding the code for this model, I followed this [article][tuning-gpt2]. The core component is this:
+```python
+def fitModel(
+    model,
+    dataset,
+    tokenizer,
+    batch_size=16,
+    epochs=5,
+    lr=2e-5,
+    max_seq_len=400,
+    warmup_steps=200,
+    gpt2_type="gpt2",
+    output_dir=".",
+    output_prefix="chkp",
+    test_mode=False,
+    save_model_on_epoch=True,
+    log_file="",
+):
+    acc_steps = 100
+    device = torch.device("cuda")
+    model = model.cuda()
+    model.train()
 
-To use GPT-2 for a specific task, such as language translation or text generation, the pre-trained model is fine-tuned on a smaller, task-specific dataset using supervised learning techniques. During fine-tuning, the weights of the neural network are adjusted to optimize its performance on the specific task at hand.
+    optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
+    scheduler = get_linear_schedule_with_warmup(
+        optimizer, num_warmup_steps=warmup_steps, num_training_steps=-1
+    )
 
-[TODO] Code and description.
+    train_dataloader = DataLoader(dataset, batch_size=1, shuffle=True)
+    loss = 0
+    accumulating_batch_count = 0
+    input_tensor = None
+
+    for epoch in range(epochs):
+
+        print(f"Training epoch {epoch}")
+        print(loss)
+        if epoch > 0:
+            with open(log_file, "a") as file_object:
+                file_object.write(f"{epoch},{loss.item()}\n")
+        for idx, entry in tqdm(enumerate(train_dataloader)):
+            (input_tensor, carry_on, remainder) = pack_tensor(entry, input_tensor, 768)
+
+            if carry_on and idx != len(train_dataloader) - 1:
+                continue
+
+            input_tensor = input_tensor.to(device)
+            outputs = model(input_tensor, labels=input_tensor)
+            loss = outputs[0]
+            loss.backward()
+
+            if (accumulating_batch_count % batch_size) == 0:
+                optimizer.step()
+                scheduler.step()
+                optimizer.zero_grad()
+                model.zero_grad()
+
+            accumulating_batch_count += 1
+            input_tensor = None
+
+        if save_model_on_epoch:
+
+            if epoch % 10 == 0:
+                torch.save(
+                    model.state_dict(),
+                    os.path.join(output_dir, f"{output_prefix}-{epoch}.pt"),
+                )
+
+    return model
+
+
+def generate_text(
+    model,
+    tokenizer,
+    prompt,
+    entry_count=10,
+    entry_length=30,  # maximum number of words
+    top_p=0.8,
+    temperature=1.0,
+):
+    model.eval()
+    generated_num = 0
+    generated_list = []
+
+    filter_value = -float("Inf")
+
+    with torch.no_grad():
+
+        for entry_idx in trange(entry_count):
+
+            entry_finished = False
+            generated = torch.tensor(tokenizer.encode(prompt)).unsqueeze(0)
+
+            if generated.size(dim=1) == 0:
+                continue
+
+            for i in range(entry_length):
+                outputs = model(generated, labels=generated)
+                loss, logits = outputs[:2]
+                logits = logits[:, -1, :] / (temperature if temperature > 0 else 1.0)
+
+                sorted_logits, sorted_indices = torch.sort(logits, descending=True)
+                cumulative_probs = torch.cumsum(
+                    F.softmax(sorted_logits, dim=-1), dim=-1
+                )
+
+                sorted_indices_to_remove = cumulative_probs > top_p
+                sorted_indices_to_remove[..., 1:] = sorted_indices_to_remove[
+                    ..., :-1
+                ].clone()
+                sorted_indices_to_remove[..., 0] = 0
+
+                indices_to_remove = sorted_indices[sorted_indices_to_remove]
+                logits[:, indices_to_remove] = filter_value
+
+                next_token = torch.multinomial(F.softmax(logits, dim=-1), num_samples=1)
+                generated = torch.cat((generated, next_token), dim=1)
+
+                if next_token in tokenizer.encode("<|endoftext|>"):
+                    entry_finished = True
+
+                if entry_finished:
+
+                    generated_num = generated_num + 1
+
+                    output_list = list(generated.squeeze().numpy())
+                    output_text = tokenizer.decode(output_list)
+                    generated_list.append(output_text)
+                    break
+
+            if not entry_finished:
+                output_list = list(generated.squeeze().numpy())
+                output_text = f"{tokenizer.decode(output_list)}<|endoftext|>"
+                generated_list.append(output_text)
+
+    return " ".join(generated_list)
+
+model = GPT2LMHeadModel.from_pretrained("gpt2")
+model = fitModel(
+    model,
+    dataset,
+    tokenizer,
+    epochs=args.epochs,
+    lr=2e-5,
+    log_file=logFile,
+    output_dir=chkpFolder,
+)
+torch.save(model, os.path.join(chkpFolder, "model.pt"))
+
+generated_text = []
+labels_to_delete = []
+
+for i in range(len(test_set)):
+    txt = generate_text(
+        model.to("cpu"), tokenizer, test_set["Text"].iat[i], entry_count=1
+    )
+
+    if len(txt) > 31:
+        generated_text.append(txt)
+
+    else:
+        labels_to_delete.append(test_set.index[i])
+```
+
 
 ### Transformer outputs
 Here is a selection of sentences generated by the Markov chain model:  
@@ -326,5 +489,4 @@ So far, stay curious and keep learning!
 [tuning-gpt2]: https://towardsdatascience.com/how-to-fine-tune-gpt-2-for-text-generation-ae2ea53bc272  
 [keras-lstm-guide]: https://keras.io/guides/working_with_rnns/
 [lstm-on-comedy]: https://sethmbcrider.com/papers/stares-at-burger-non-comittally-an-exploration-of-generative-comedy-scripts-and-machine-learning/
-[jeffery-ho]: https://unsplash.com/@jefferyho?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText
-[unsplash]: https://unsplash.com/de/fotos/ZtTI0BAxf2U?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText
+[jalammar-transformer]: https://jalammar.github.io/illustrated-transformer/

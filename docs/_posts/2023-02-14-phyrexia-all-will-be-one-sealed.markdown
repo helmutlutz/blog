@@ -5,18 +5,16 @@ date:   2023-02-14 20:55:50 +0100
 category: Life
 tags: MTG
 ---
-![Rares from the event](images/phyrexia-all-will-be-one-sealed/ONE-sealed-event.jpg)
-<!readmore>
+![Rares from the event](/images/phyrexia-all-will-be-one-sealed/ONE-sealed-event.jpg)
 
 # A premiere
-This post is about my first "sealed" event of the game *Magic: The Gathering* (MTG). As with most deck building games, it's focus is on crafting a strategy, managing resources and dealing with uncertainties. MTG releases new sets of cards regularly, and the event that I attended was about the set "Phyrexia: All will be one". As I'm still learning, don't expect a "guide" or anything. If you want to learn about this format, there are plenty of good articles in places like [Card Game Base][cardgamebase], [Draftsim][draftsim], or [MTG Arena Zone][mtgazone].  
+Have you ever attended a *Sealed* event for Magic: The Gathering (MTG)? If you're unfamiliar with the game, a sealed event is a type of tournament where players are given a set number of cards and have to build a deck from them on the spot. Recently, I had the opportunity to attend my first sealed event for the newest MTG set, "Phyrexia: All will be one". While I'm still relatively new to the game, the experience was both exciting and challenging.  
+<!readmore>
 
-A couple of days ago I attended my first *Sealed* event for the Prerelease of the set "Phyrexia: All Will Be One", and it was a great experience. There were nice people who chatted with me, helped me out, gave me tips, and above all were very patient with me. On the other hand, it was still a challenging experience due to the time restrictions for all phases of the event.
+In this blog post, I'll share my thoughts on the event, the set, and some of the lessons I went home with. Keep in mind, this won't be a guide per se, but rather a personal reflection on my first sealed experience. If you're interested in learning more about the format, there are plenty of resources available online, such as [Card Game Base][cardgamebase], [Draftsim][draftsim], or [MTG Arena Zone][mtgazone].
 
 # An overview of the format for beginners like me
-For those reading this who haven't figured out by now what I'm talking about, here is a little bit of background information: A *Sealed Event* is small tournament where each player receives 6 "booster" packs with random playing cards. Then you are given a limited amount of time to construct a deck of 40 cards by only using and combining the cards you received.
-
-The objective is to strike the right balance between creature-spells, instant-spells, sorceries, etc. while also building in some degree of synergy between the cards. As far as my experience goes, the Sealed format is a great way to learn how to use limited resources, to solve complex "optimization" problems, and to try new strategies and card mechanics.
+As with most deck-building games, the objective is to strike the right balance between creature-spells, instant-spells, sorceries, etc. while also achieving some degree of synergy between the cards. As far as my experience goes, the Sealed format is a great way to learn how to use limited resources, to try new strategies and card mechanics, and above all to have fun with the new set of cards.
 
 Throughout the tournament I played a series of best-of-three games with three opponents. That means you typically play 9 games unless some games take too long. At the end, your stats are compared in a leaderboard, and you get prizes in the form of booster packs. I mentioned already that I was a total beginner but where I played, they even handed out a booster pack for each at the end of the leaderboard - what a nice welcome present to the MTG community :P
 

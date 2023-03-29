@@ -5,7 +5,7 @@ date:   2023-02-15 20:55:50 +0100
 category: Work
 tags: CloudEngineering MachineLearning
 ---
-<!readmore>
+<!--more-->
 Just a collection of notes which I took when setting up my environment in AWS and creating templates to automatically launch training jobs.
 
 ## Step by step setup of your AWS environment

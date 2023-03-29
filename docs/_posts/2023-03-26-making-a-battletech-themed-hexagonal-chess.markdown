@@ -8,7 +8,7 @@ tags: Crafting GameDesign PolymerClay
 ![Battletech Chess Header](/images/making-a-bt-themed-hex-chess/article_header.jpg)
   
 If you're a fan of the Battletech universe, you might know that the whole thing started from a tabletop game - the sort where you have miniatures of mechs on a map composed of hexagonal terrain tiles. However, the game can get quite expensive (buy miniatures) as well as time consuming (complicated rules), which both make the game hard to enjoy for casual players. So, why not create your own Battletech-inspired game that is both affordable and easy to play?
-<!readmore>
+<!--more-->
   
 In this post, I'll share my experience of creating a Battletech-inspired hexagonal chess variant. This was a birthday present for a very close friend, and a fellow Battletech enthusiast, who I knew would appreciate and enjoy a game like this.
 

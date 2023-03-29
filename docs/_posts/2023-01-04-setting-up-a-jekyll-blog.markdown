@@ -5,7 +5,7 @@ date:   2023-01-03 20:55:50 +0100
 category: Work
 tags: SetupNotes
 ---
-<!readmore>
+<!--more-->
 
 This is just a plain list of steps that I followed to get this site up and running. For my future self, or anyone who has similar issues. 
 - Starting from scratch on Windows, I followed this guide for the Jekyll installation: [Jekyll installation guide][jekyll-installation]

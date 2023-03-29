@@ -9,7 +9,7 @@ tags: CloudEngineering MachineLearning
 *"Multiverse Kitchen Table" (this image was created with the assistance of DALL·E 2)*
   
 I started this project because I was curious about a sub-field of machine learning which is currently more hyped than quantum computing. Companies spend millions on this technology just because it is so versatile and applicable in our everyday lives. Three words: *Large Language Models*.  
-<!readmore>
+<!--more-->
 
 Without having any prior experience in this domain, I saw two things that I was curious about:  
 - Lately the academic community as well as the industry switched from recurrent neural networks to so called *transformer* architectures. It seemed to be fairly straightforward to obtain one of these models pre-trained on a large text dataset, and then fine-tune it, such that the model is able to produce text in the same style as your training data (e.g. "write like Shakespeare"). So this is point number one that sparked my interest.  

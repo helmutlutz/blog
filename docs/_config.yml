@@ -63,7 +63,7 @@ url: "https://www.scrycode.de" # the base hostname & protocol for your site, e.g
 
 permalink: /:title/
 
-excerpt_separator: <!readmore>  # To define the excerpt that is being shown for a post on the front-page
+excerpt_separator: <!--more-->  # To define the excerpt that is being shown for a post on the front-page
 # The release of Jekyll Now that you're using
 version: v1.2.0
 

@@ -8,7 +8,7 @@ tags: MTG
 ![Rares from the event](/images/phyrexia-all-will-be-one-sealed/ONE-sealed-event.jpg)
 
 Have you ever attended a *Sealed* event for Magic: The Gathering (MTG)? If you're unfamiliar with the game, a sealed event is a type of tournament where players are given a set number of cards and have to build a deck from them on the spot. Recently, I had the opportunity to attend my first sealed event for the newest MTG set, "Phyrexia: All will be one". While I'm still relatively new to the game, the experience was both exciting and challenging.  
-<!readmore>
+<!--more-->
 
 In this blog post, I'll share my thoughts on the event, the set, and some of the lessons I went home with. Keep in mind, this won't be a guide per se, but rather a personal reflection on my first sealed experience. If you're interested in learning more about the format, there are plenty of resources available online, such as [Card Game Base][cardgamebase], [Draftsim][draftsim], or [MTG Arena Zone][mtgazone].
 

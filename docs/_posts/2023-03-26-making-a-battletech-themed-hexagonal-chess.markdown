@@ -22,11 +22,7 @@ From here you basically have two choices: either use a clear coat or polish the 
 
 After baking the pieces, I sanded them with sandpaper of grain size 120, followed by wet sandpaper of grain size 800. Finally, I polished the pieces with my orbital sander using a felt pad and a wool pad.
   
-![Rough Sanding](/images/making-a-bt-themed-hex-chess/rough_sanding.jpg)
-  
-![Wet Sanding](/images/making-a-bt-themed-hex-chess/wet_sanding.jpg)
-  
-![Polishing Step](/images/making-a-bt-themed-hex-chess/polishing.jpg)
+![Polishing steps](/images/making-a-bt-themed-hex-chess/polishing_steps.jpg)
 
 ## Step 3: Creating the Board
 
@@ -59,7 +55,7 @@ For the black tiles, the background of the illustrations had to match the color 
   
 ![Test card](/images/making-a-bt-themed-hex-chess/test_card.jpg)
   
-I then used black and white /images from [sarna.net][sarna] and removed their background with Photoshop. I added color and patterns, arranged them in a 10x15 cm format, and had them printed as photos in a local shop.
+I then used black and white images from [sarna.net][sarna] and removed their background with Photoshop. I added color and patterns, arranged them in a 10x15 cm format, and had them printed as photos in a local shop.
   
 ![Mechs in Arrays](/images/making-a-bt-themed-hex-chess/mechs_in_arrays.jpg)
 

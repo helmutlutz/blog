@@ -76,7 +76,7 @@ Just a collection of notes which I took when setting up my environment in AWS an
     cd /c/Users/.../TextGenerators/backend/model_builder; \
     scp -r -i "/c/Users/.../nn-trainer.pem" \
         requirements_rnn.txt rnn_builder.py datasets \
-        ec2-user@ec2-3-73-123-91.eu-central-1.compute.amazonaws.com:/dltraining
+        ec2-user@ec2-xx-xx-xxx-xxx.eu-central-1.compute.amazonaws.com:/dltraining
     ```
 - **Important**: Unmount and detach the EBS volume after you have copied datasets and scripts into it.
     - `sudo umount -d /dev/xvdf`

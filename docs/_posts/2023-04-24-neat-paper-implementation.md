@@ -5,7 +5,7 @@ date:   2023-04-24 18:55:50 +0100
 category: Work
 tags: MachineLearning
 ---
-![Network Header](/images/neat_paper_implementation/article_header.jpg)
+![Network Header](/images/neat-paper-implementation/article_header.jpg)
 *"Multiverse Kitchen Table" (this image was created with the assistance of DALL·E 2)*
 
 Are you curious about the possibility of evolving artificial neural networks, akin to how biological neural networks have evolved to become more complex over time? In this blog post, I'll walk you through my implementation of NeuroEvolution of Augmenting Topologies (NEAT), a method proposed by Stanley and Miikkulainen that uses evolutionary principles to guide hyperparameter optimization in neural networks. 

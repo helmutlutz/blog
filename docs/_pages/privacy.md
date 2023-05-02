@@ -38,7 +38,7 @@ Our privacy policy is structured as follows:
 ### I. Information about us as controllers of your data
 The party responsible for this website (the „controller“) for purposes of data protection law is:
   
-Helmut Lutz  
+Dr. Helmut Lutz  
 Anna-Käsler-Straße, 15  
 42799 Leichlingen  
 Germany  

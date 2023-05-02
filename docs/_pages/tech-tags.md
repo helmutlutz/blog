@@ -1,6 +1,6 @@
 ---
 layout: page
-permalink: /work-tags/
+permalink: /tech-tags/
 title: Technical Posts
 ---
 

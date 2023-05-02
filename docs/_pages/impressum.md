@@ -7,7 +7,7 @@ title: Impressum
 ## Information provided here according to § 5 TMG
 (Angaben gemäß § 5 TMG)  
   
-Helmut Lutz  
+Dr. Helmut Lutz  
 Anna-Käsler-Straße, 15  
 42799 Leichlingen  
 Germany

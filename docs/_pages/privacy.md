@@ -5,9 +5,8 @@ title: Privacy Policy
 ---
 
 ## In simple words
-- The website owner doesn’t steal or sell any of your data.
-- Cookies are used where necessary.
-- Local storage is used where necessary.
+- The website owner doesn’t collect or sell any of your data.
+- This website doesn't use cookies.
 - The site is hosted by GitHub Pages.  
 
 ## Third Party Inclusion

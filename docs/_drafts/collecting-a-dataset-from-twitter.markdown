@@ -2,6 +2,7 @@
 layout: post
 title:  "Collecting a dataset from Twitter"
 date:   2023-01-16 20:55:50 +0100
+category: Work
 tags: CloudServices MachineLearning
 ---
 # Intro

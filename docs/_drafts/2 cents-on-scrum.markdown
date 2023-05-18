@@ -1,7 +1,8 @@
 ---
 layout: post
-title:  "Building a Twitter bot on AWS"
+title:  "A couple of Thoughts on Agile"
 date:   2022-11-15 15:55:50 +0100
+category: Work
 tags: Productivity
 ---
 
@@ -10,7 +11,7 @@ Agile project management methods are becoming increasingly popular in today's fa
 
 Another motivation for using agile project management is to improve communication and collaboration within the team. Agile methods promote an open and transparent work environment where team members are encouraged to share ideas and give feedback. This helps to build trust and a sense of ownership among team members, which can lead to a more motivated and productive team. Additionally, the regular check-ins and reviews built into agile methodologies help to ensure that everyone is on the same page and that the project is progressing as expected.
 
-Finally, agile project management also helps to reduce risk and increase predictability. By breaking projects down into smaller chunks and delivering value incrementally, teams can identify and address issues early on, before they become major problems. This allows teams to deliver projects on time and within budget, which can lead to increased customer satisfaction and improved business outcomes.
+Finally, agile project management also helps to reduce risk and increase predictability. By breaking projects down into smaller chunks and delivering value incrementally, teams can identify and address issues early on, before they become major problems.
 
 # Some personal experiences
 Scrum can be difficult to implement in organizations that are not already familiar with Agile methodologies.

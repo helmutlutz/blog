@@ -12,25 +12,25 @@ If you're a fan of the Battletech universe, you might know that the whole thing 
   
 In this post, I'll share my experience of creating a Battletech-inspired hexagonal chess variant. This was a birthday present for a very close friend, and a fellow Battletech enthusiast, who I knew would appreciate and enjoy a game like this.
 
-## Step 1: Creating the Game Pieces
+## Step 1: Creating the game pieces
 
 To create the game pieces, I purchased two large blocks of polymer clay (one black, one white) and rolled them into a baguette-like shape. I then sliced the clay into 0.5 mm thick pieces and shaped them into 3x3 cm hexagonal game pieces. To ensure that the edges were equal, I fine-tuned the shape on a hexagon stencil that I cut out of cardboard. Once the pieces were shaped, I baked them in the oven (follow the supplier's instructions for this).
   
 From here you basically have two choices: either use a clear coat or polish the pieces. In case you want to use a clear coat, you can skip the next step. Just one tip: use a clear coat that specifically is compatible with your polymer clay. Otherwise, your coated pieces will become sticky. Also, you might want to make sure that your coating is compatible with whatever glue you want to use later for applying the illustrations to the pieces.
 
-## Step 2: Sanding and Polishing the Pieces
+## Step 2: Sanding and polishing the pieces
 
 After baking the pieces, I sanded them with sandpaper of grain size 120, followed by wet sandpaper of grain size 800. Finally, I polished the pieces with my orbital sander using a felt pad and a wool pad.
   
 ![Polishing steps](/images/making-a-bt-themed-hex-chess/polishing_steps.jpg)
 
-## Step 3: Creating the Board
+## Step 3: Creating the board
 
 To create the board, I purchased 3x3 cm wooden hexagons from Amazon and dyed them with coffee (yes, that really works). Hex-chess requires three colors, so I left a third undyed, dyed another third once, and dyed the last third 3-4 times to achieve the desired contrast between the tiles. I dyed the board in the same way.
   
 ![Coffee Dying](/images/making-a-bt-themed-hex-chess/coffee_dying.jpg)
 
-## Step 4: Gluing the Pieces to the Board
+## Step 4: Gluing the pieces to the board
 
 To glue the pieces to the board, my dad created a blueprint using AutoCAD (I guess Powerpoint or Inkscape would also work). I taped the blueprint to a table and covered it with lines of transparent package tape, sticky side up. Of course, you need to fix these stripes of tape to the table. 
   
@@ -43,13 +43,13 @@ I then arranged the hexagons on the tape (matching the blueprint below) and made
   
 Next, I added glue and placed the board on top, followed by some heavy books for additional pressure. I waited for 1-2 hours, and this step was finished.
   
-![Glueing the tiles](/images/making-a-bt-themed-hex-chess/glueing_the_tiles.jpg)
+![Gluing the tiles](/images/making-a-bt-themed-hex-chess/glueing_the_tiles.jpg)
   
-![Glueing finished](/images/making-a-bt-themed-hex-chess/glueing_finished.jpg)
+![Gluing finished](/images/making-a-bt-themed-hex-chess/glueing_finished.jpg)
   
 As a final step, you might want to apply a clear coating to your chess board. I did, since I was worried that the coffee dye would over time spread to my white game pieces.
 
-## Step 5: Illustrating the Tiles
+## Step 5: Illustrating the tiles
 
 For the black tiles, the background of the illustrations had to match the color of the game pieces. To hit the right color for the background, I created a "test card" and compared it to the game pieces. 
   
@@ -59,7 +59,7 @@ I then used black and white images from [sarna.net][sarna] and removed their bac
   
 ![Mechs in Arrays](/images/making-a-bt-themed-hex-chess/mechs_in_arrays.jpg)
 
-## Step 6: Gluing the Mechs to the Pieces
+## Step 6: Gluing the mechs to the pieces
 
 Finally, I cut out the mechs and glued them onto the polymer clay pieces. Make sure you cut them smaller than the actual game piece.
   

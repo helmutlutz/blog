@@ -3,7 +3,7 @@ layout: post
 title:  "The Importance of Getting Initial Requirements Right"
 date:   2023-05-17 20:55:50 +0100
 category: Work
-tags: ProjectManagement Productivity
+tags: ProjectManagement
 ---
 ![Office Desk](/images/getting-requirements-right/article-header.jpg)
 *Picture by Ron Lach (Pexels)*

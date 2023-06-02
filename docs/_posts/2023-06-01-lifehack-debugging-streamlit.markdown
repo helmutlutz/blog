@@ -3,7 +3,7 @@ layout: post
 title:  "Life Hack: Debugging Streamlit Apps in VS Code"
 date:   2023-06-01 16:55:50 +0100
 category: Work
-tags: Productivity
+tags: LifeHacks
 ---
 Have you ever tried to debug your Streamlit app like a normal python script? In case you want to see how it's done in VS Code, continue reading this brief step-by-step guide. 
 <!--more-->

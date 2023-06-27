@@ -6,7 +6,7 @@ category: Work
 tags: MachineLearning
 ---
 ![Uncertainty](/images/prediction-intervals/article_header.jpg)
-*"Uncertainty" (this image was created with the assistance of Stable Diffusion)*
+*"Cosmic Uncertainty" (this image was created with the assistance of Stable Diffusion)*
   
 When using machine learning (ML) applications, end-users often seek a reliable measure to assess the uncertainty of predictions. This is especially true when the stakes are high, such as medical diagnosis or accident prevention. One such measure are *prediction intervals*. When you're working in python, they are basically just one more wrapper for your model. From my experience, the value of an uncertainty measure is often underestimated by end users at the start of the project. But in the end, it can make all the difference when it comes to user experience and adoption.  
 <!--more-->

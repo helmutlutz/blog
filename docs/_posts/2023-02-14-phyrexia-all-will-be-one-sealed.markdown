@@ -19,7 +19,7 @@ Throughout the tournament I played a series of best-of-three games with three op
 
 ## Lessons learned
 - Splashing
-	- Splashing needs some more lands apart from fetchlands. I never played splashed decks before, so I never bothered to so some research on splashing. One bad choice was to include my signature card (1, 1R, 1G). In order to cast that card consistently on curve, I would have needed 9 mountains (for a 75% chance). A good article on why this was a bad idea can be found here: [To Splash or Not to Splash in Limited?][splashing-limited]
+	- Splashing needs some more lands apart from fetchlands. I splashed for my signature card (1, 1R, 1G), but in order to cast that card on curve, I would have needed 9 mountains (for a 75% chance), even better 10. A good article on why this was a bad idea can be found here: [To Splash or Not to Splash in Limited?][splashing-limited]
 		- As a rule of thumb, you want to have 4-5 lands for 1-2 colored spells (with only one colored mana), to consistently cast a spell "on curve"
 		- Splash only for cards with high converted mana cost
 		- Splash only for single colored-cards
@@ -30,15 +30,15 @@ Throughout the tournament I played a series of best-of-three games with three op
 	- Fetchlands, or cards that fetch you a land when they come into play, are not only important in case you are splashing, but also when you have cards that require multiple mana sources of one color
 	- Some notes on "Evolving Wilds" (which I got a lot from Midnight Hunt): The main problem with Evolving Wilds is the land comes into play tapped, making it the worst of the fetchlands. In an aggressive deck, you cannot afford to waste a single turn by waiting for the right color. If you play Control, you can compensate for that by playing enough disruptors, until your big threats are on the board.
 
-- The premium promo card: This is a card which is included in the prerelease pack. What I've heard was that even experienced players fall into the trap of getting too fixated on this card and try to accommodate it in the deck when they shouldn't. Must be something psychological. Not surprising that I also fell for this one and, for the reasons given in the previous point about splashing, it made the deck weaker than it would be.
+- The premium promo card: This is a card which is included in the prerelease pack. It seems that even experienced players fall for becoming too attached to this card and try to accommodate it when they shouldn't. 
 
-- Shuffling: I was told that I was too slow with shuffling, understandable since it was my first play under time pressure. So, the tip for beginners is: 
+- Shuffling beginner tip: 
   - Put six cards in front of you and start putting down cards on each of the piles 
   - When you're done, put the piles together and give it one iteration of shuffling. That's it.
 
-- Keep in mind your cards with flashback which are in the graveyard. Wouldn't have mattered, but I still realized twice that I forgot about them.
+- Keep in mind your cards with flashback which are in the graveyard. Wouldn't have mattered in the end, but I still noticed that I forgot once or twice.
 
-- Keep the curve low. ONE was a quite aggressive set and I'm guilty of underestimating that. After the first two matches I realized that I had to replace a 5- and 6 drop with a 2- and 3-drop. Worked much better. 
+- Keep the curve low. ONE was a quite aggressive set and after the first two matches I realized that I had to replace a 5- and 6 drop with a 2- and 3-drop. Worked much better. 
 
 ## Final words
 All in all, it was a fun experience, and I learned a lot. More than I would've learned playing MTG Arena for 3 months. So far, stay curious and keep learning!

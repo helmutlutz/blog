@@ -12,6 +12,7 @@ Contains the articles that I write
     bundle add webrick
     bundle exec jekyll serve
     ```
+    Then use: > bundle exec jekyll serve
 
 - Another issue was that the css was not rendering properly online - locally it did. The solution was to add a url and baseurl to the _config.yml (actually this was described in the guide as optional step): 
     ```

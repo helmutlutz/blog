@@ -87,6 +87,27 @@ Privacy Policy: https://www.linkedin.com/legal/privacy-policy
 Twitter Inc., 795 Folsom St., Suite 600, San Francisco, CA 94107, USA
   
 Privacy Policy: https://twitter.com/privacy
+
+##### Google Analytics
+We use Google Analytics on our website. This is a web analytics service provided by Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland (hereinafter: Google).
+
+The Google Analytics service is used to analyze how our website is used. The legal basis is Art. 6 Para. 1 lit. f) GDPR. Our legitimate interest lies in the analysis, optimization, and economic operation of our site.
+
+Usage and user-related information, such as IP address, place, time, or frequency of your visits to our website will be transmitted to a Google server in the United States and stored there. However, we use Google Analytics with the so-called anonymization function, whereby Google truncates the IP address within the EU or the EEA before it is transmitted to the US.
+
+The data collected in this way is in turn used by Google to provide us with an evaluation of visits to our website and what visitors do once there. This data can also be used to provide other services related to the use of our website and of the internet in general.
+
+Google states that it will not connect your IP address to other data. In addition, Google provides further information with regard to its data protection practices at
+
+https://www.google.com/intl/de/policies/privacy/partners,
+
+including options you can exercise to prevent such use of your data.
+
+In addition, Google offers an opt-out add-on at
+
+https://tools.google.com/dlpage/gaoptout?hl=en
+
+in addition with further information. This add-on can be installed on the most popular browsers and offers you further control over the data that Google collects when you visit our website. The add-on informs Google Analytics‘ JavaScript (ga.js) that no information about the website visit should be transmitted to Google Analytics. However, this does not prevent information from being transmitted to us or to other web analytics services we may use as detailed herein.
   
 [Model Data Protection Statement][modelstatement] for [Anwaltskanzlei Weiß & Partner][anwaltskanzlei]
 

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Extreme Programming (XP): An Agile Approach to Software Project Management"
-date:   2023-06-22 20:55:50 +0100
+date:   2023-07-13 20:55:50 +0100
 category: Work
 tags: ProjectManagement Productivity
 ---

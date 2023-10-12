@@ -7,3 +7,23 @@
         gtag('config', '{{ site.google_analytics_ga4 }}');
       </script>
 {% endif %}
+{% if site.trackboxx %}
+      <script>
+        (function(d, s, id, w, f){
+            w[f] = w[f] || function() {
+                (w[f].q = w[f].q || []).push(arguments)
+            };
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)){ return; }
+            js = d.createElement(s); js.id = id;
+            js.onload = function(){
+                document.dispatchEvent(new Event('tbScriptLoaded'));
+            };
+            js.async = true;
+            js.src = "https://cdn.trackboxx.info/p/tracker.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'trackboxx-script', window, 'trackboxx'));
+        trackboxx('set', 'siteId', '{{ site.trackboxx }}');
+        trackboxx('trackPageview');
+      </script>
+{% endif %}

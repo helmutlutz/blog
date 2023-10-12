@@ -7,6 +7,7 @@ title: Privacy Policy
 ## In simple words
 - The website owner doesn’t collect or sell any of your data.
 - This website doesn't use cookies.
+- I use Trackboxx as an alternative to Google Analytics. It works without cookies and stores anonymized visitor data in accordance with GDPR regulations.
 - The site is hosted by GitHub Pages.  
 
 ## Third Party Inclusion
@@ -15,6 +16,15 @@ This website does not use Google Analytics, or any other tracking services.
 
 ### Google Fonts
 This website uses Fonts provided by Google LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA. All Fonts are hosted inside the Github Repository of this Website. No requests for downloading fonts are sent to Google servers when visiting this site.  
+
+### Trackboxx
+On our website we use the web analysis service [Trackboxx][trackboxx]. We use it to statistically evaluate visitor access and analyze the use of our website. The data is stored anonymously on a server in Germany for the aforementioned purpose and is subject to the regulations of the GDPR.
+  
+We do not use any cookies or store personal data for the analysis. Instead, your IP address is used to generate a code, which is then assigned to an anonymous user ID as long as you are on our website. This data cannot be assigned to a specific individual and is encrypted with a code that changes daily. It is therefore not possible to “recognize” you when you visit our website again.
+  
+Cross-page tracking, linking of the data with other sources, or transfer of information to third parties does not take place.
+  
+But if you still do not want to help improve our website you can prevent your page visit from being included in the evaluation by activating the "Do-Not-Track-function" in your browser. You can find information on how this works with the most common browser types under the following links: [Internet Explorer 11][disable_edge], [Mozilla Firefox][disable_firefox], [Google Chrome][disable_chrome]
 
 ### Hosting
 This Website is hosted as a GitHub Pages website. GitHub may collect User Personal Information from visitors to this GitHub Pages website, including logs of visitor IP addresses, to comply with legal obligations, and to maintain the security and integrity of this Website and the Service.
@@ -93,3 +103,7 @@ Privacy Policy: https://twitter.com/privacy
 
 [modelstatement]: (https://www.generator-datenschutzerklärung.de/)
 [anwaltskanzlei]: (https://www.ratgeberrecht.eu/)
+[trackboxx]: (https://trackboxx.com/en/)
+[disable_edge]: (https://support.microsoft.com/de-de/help/17288/windows-internet-explorer-11-use-do-not-track)
+[disable_firefox]: (https://support.mozilla.org/de/kb/wie-verhindere-ich-dass-websites-mich-verfolgen)
+[disable_chrome]: (https://support.google.com/chrome/answer/2790761?co=GENIE.Platform%3DDesktop&hl=de)

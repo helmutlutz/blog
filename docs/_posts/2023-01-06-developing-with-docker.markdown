@@ -7,7 +7,7 @@ tags: SetupNotes CloudEngineering
 ---
 <!--more-->
 
-## Setting up a Docker environment, locally and on AWS
+## Setting up a Docker environment locally
 This is rather a collection of notes/learnings than a "post". I started with this documentation when I was in the preparation for my project about building text generators. Since I knew that I wanted to finally deploy (or train) on AWS, I thought it might be a good idea to use an environment which I could simply transfer to the cloud. Docker seemed to be such an environment, so I started setting it up locally and also experimented with transferring it to EC2 instances in AWS. 
 
 ## Developing code locally with VScode and a Docker container
@@ -109,6 +109,21 @@ This is rather a collection of notes/learnings than a "post". I started with thi
 	"postCreateCommand": "jupyter notebook --generate-config && ipython kernel install --user",
 	"postStartCommand": "jupyter notebook --ip=0.0.0.0 --port=8888 --allow-root"
 	```
+  
+- From time to time it may be necessary to "reclaim disk space" from docker
+	Here's the solution that helped me: https://answers.microsoft.com/en-us/windows/forum/all/optimize-vhd-not-found-in-windows-10-home/a727b760-0f82-4d0f-8480-d49eeaeb11a2  
+	In a Windows PowerShell (with admin rights), run the following commands (after shutting down docker):  
+	```
+	wsl --shutdown  
+	diskpart  
+	# open window Diskpart  
+	select vdisk file="C:\WSL-Distros\…\ext4.vhdx"  
+	attach vdisk readonly  
+	compact vdisk  
+	detach vdisk  
+	exit  
+	```  
+	This reduced my vdisk size from 60 GB to 40 GB  
   
 ## Packaging a Docker image for AWS
 - Each of the folders has its own Dockerfile. For example the folder `/backend/model_builder`

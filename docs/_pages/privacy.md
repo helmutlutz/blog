@@ -7,12 +7,12 @@ title: Privacy Policy
 ## In simple words
 - The website owner doesn’t collect or sell any of your data.
 - This website doesn't use cookies.
-- I use Trackboxx as an alternative to Google Analytics. It works without cookies and stores anonymized visitor data in accordance with GDPR regulations.
+- This website uses Trackboxx as an alternative to Google Analytics. Trackboxx stores anonymized visitor data in accordance with GDPR regulations.
 - The site is hosted by GitHub Pages.  
 
 ## Third Party Inclusion
 ### Google Analytics
-This website does not use Google Analytics, or any other tracking services.  
+This website does not use Google Analytics.  
 
 ### Google Fonts
 This website uses Fonts provided by Google LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA. All Fonts are hosted inside the Github Repository of this Website. No requests for downloading fonts are sent to Google servers when visiting this site.  
@@ -31,8 +31,7 @@ This Website is hosted as a GitHub Pages website. GitHub may collect User Person
   
 For further details visit the Github Global Privacy Policy: https://help.github.com/articles/global-privacy-practices/  
 
-## Official Version
-### Privacy Policy
+## Privacy Policy
 Personal data (usually referred to just as „data“ below) will only be processed by us to the extent necessary and for the purpose of providing a functional and user-friendly website, including its contents, and the services offered there.
   
 Per Art. 4 No. 1 of Regulation (EU) 2016/679, i.e. the General Data Protection Regulation (hereinafter referred to as the „GDPR“), „processing“ refers to any operation or set of operations such as collection, recording, organization, structuring, storage, adaptation, alteration, retrieval, consultation, use, disclosure by transmission, dissemination, or otherwise making available, alignment, or combination, restriction, erasure, or destruction performed on personal data, whether by automated means or not.

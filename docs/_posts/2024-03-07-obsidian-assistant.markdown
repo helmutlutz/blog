@@ -240,7 +240,7 @@ def create_vault_dict(vault_path: str, paths: list) -> dict:
   
 Next is the so called "embedding": I will transform the chunks into vectors using the `all-MiniLM-L6-v2` sentence transformer model. A sentence transformer maps sentences & paragraphs to a 384 dimensional dense vector space and can be used for tasks like clustering or semantic search - and semantic search is what we want.  
 Where do you typically store data? In a database, or a data warehouse. For vectors that is simply called *vector store*.  
-> A vector store is a database for vectors, where vectors are datastructures to store a sequence of numbers. During embedding, vectors are usually created from data points such that similar data points are close together in vector space. That is why similarity can be computed more efficiently and consequently you can retrieve items much faster, even if they don't exactly match the query.  
+> A vector is a datastructure to store a sequence of numbers, and a vector *store* is a database for vectors. During the embedding, vectors are created from the data such that similar data points are close together in *vector space*. That is why similarity can be computed more efficiently and you can retrieve items even if they don't exactly match the query.  
   
 The embedding and storing is both handled by the function `Chroma.from_documents(documents, embedding-transformer, persist_directory)` (Side note: *embedding-transformer* here refers to anything that computes, or *transforms* strings to vectors).   
 ```python
@@ -290,7 +290,7 @@ In summary, Chroma is designed for production usage. In-memory document array is
   
 ### Bringing it all together: Building the agent
 Finally, we are ready to assemble the pieces: agent, tools, and all the wiring in between. First you will need to decide which *agent type* you want to use. With langchain, there are a couple of agent types that are closely tied to OpenAI models. My rationale here was, I would rather not be immediately tied to one vendor, so I went with a simple but effective ReAct-type agent.  
-> ReAct is an approach to solve various tasks with LLMs by generating both reasoning and actions. Reasoning helps the LLM to plan, update, and explain its actions, while actions help the model to interact with external sources, such as websites or environments, to get more information. ReAct can perform better and more interpretable than methods that only use reasoning or actions.
+> ReAct is a pattern to help LLMs solve tasks by generating both reasoning and actions. Reasoning helps the LLM to plan, update, and explain its actions, while actions help the model to interact with external sources, such as websites or environments, to get more information.  
   
 To use it, you need this pattern:
 ```python
@@ -302,11 +302,14 @@ You see, we need three things, the LLM, toolbox, and a system prompt which is al
 1. The LLM: I didn't want to use a particular proprietary model, but an *open* model that is available from a myriad of vendors. Llama2 is a good candidate here since it's available in Replicate, Amazon Bedrock, Huggingface, and many more. You can go to the [langchain Docs here][langchain-llm-interfaces] and see if your chosen vendor is supported. As you can see in the code below, I chose Replicate and implemented it according to langchain's documentation.
 2. The toolbox: As explained in the section *Learning from a minimal example / Providing the tools*, you need to construct the tools in a certain way for the agent to be able to use them. The web-search and python REPL are built-in tools, they are documented [here][langchain-builtin-tools]. For the Obsidian-tool, I implemented a retrieval tool to extract information from the Obsidian vector store according to [this guide][conversational-retrieval-agents]. On top, I added Contextual Compression as described [here][contextual-compression].  
 > The idea of contextual compression is to compress retrieved documents from the vector store, using the context of the given query, so that only the relevant information is returned.
-> Under the hood, the agent sends the retrieved chunks to the LLM to extract relevant information. To do that it prepends each query with the following prompt:
-> Given the following question and context, extract any part of the context *AS IS* that is relevant to answer the question. If none of the context is relevant return NO_OUTPUT. 
->  
-> Remember, *DO NOT* edit the extracted parts of the context.
-3. And last but not least, the prompt: You cannot simply pass a string as prompt. In langchain, the prompt needs to be a certain object, because the agent needs to populate it with information about the available tools, the chat history, and the user query. The following does the trick:
+> Under the hood, the agent sends the retrieved chunks to the LLM to extract relevant information. To do that it prepends each query with the following prompt:  
+> """  
+> Given the following question and context, extract any part of the context *AS IS* that is relevant to answer the question. If none of the context is relevant return NO_OUTPUT.  
+>   
+> Remember, *DO NOT* edit the extracted parts of the context.  
+> """    
+3. And last but not least, the prompt: You cannot simply pass a string as prompt. In langchain, the prompt needs to be a certain object, because the agent needs to populate it with information about the available tools, the chat history, and the user query. The following does the trick:  
+  
 ```python
 from langchain.prompts import PromptTemplate
 
@@ -322,20 +325,20 @@ raw_template = """
     
     To use a tool, please use the following format:\n\n
     
-    ```\n
+    \n
     Thought: Do I need to use a tool? Yes\n
     Action: the action to take, should be one of [{tool_names}]\n
     Action Input: the input to the action\n
     Observation: the result of the action\n
-    ```\n\n
+    \n\n
     
     After using a tool, you MUST formulate your final answer, even if the obtained information is incomplete. 
     You MUST use the format:\n\n
     
-    ```\n
+    \n
     Thought: Do I need to use a tool? No\n
     Final Answer: [your response here]\n
-    ```\n\n
+    \n\n
     
     Begin!\n\n
     
@@ -419,104 +422,111 @@ def initialize_agent():
 ```
   
 ## Assistant in action:
-Here are some test queries. The following tests the Obsidian-retriever tool.  
-  
-**My query:**  
-> Summarize my Obsidian notes on the repository architecture pattern.
-  
+Here are some test inputs. The following question tests the Obsidian-retriever tool.  
+**Query:**  
+```  
+Summarize my Obsidian notes on the repository architecture pattern.
+```  
 **Excerpt from the original Obsidian note:**  
-> - The repository pattern is an abstraction over data storage. It allows to decouple the model layer from the data layer
-> - The goal (and minimal viable product) here is to get to a web API as quickly as possible. We need a way to retrieve batch info from the database and instantiate our domain model objects from it. And we need a way of saving them back to the database
-> - Applying the Dependency Inversion Principle (DIP) to data access:
-> 	- The classical layered architecture has every layer depend only on the layer below it: presentation layer -> business logic -> database layer (->: depends on)
-> 	- We want the domain model to have *no dependencies whatsoever*. presentation layer -> business logic <- database layer, sometimes called the *onion architecture*
-> 	- Inverting the dependency:
-> 		- SQLAlchemy also allows for "classical" mapping, where you define your schema separately, and define an explicit mapper for how to convert between schema and domain model
->  
-> [*... it goes on with some code examples (which are skipped by the Assistant) and finally gets to advantages and disadvantages (which are picked up by the Assistant)*]
-  
+```
+- The repository pattern is an abstraction over data storage. It allows to decouple the model layer from the data layer
+- The goal (and minimal viable product) here is to get to a web API as quickly as possible. We need a way to retrieve batch info from the database and instantiate our domain model objects from it. And we need a way of saving them back to the database
+- Applying the Dependency Inversion Principle (DIP) to data access:
+	- The classical layered architecture has every layer depend only on the layer below it: presentation layer -> business logic -> database layer (->: depends on)
+	- We want the domain model to have *no dependencies whatsoever*. presentation layer -> business logic <- database layer, sometimes called the *onion architecture*
+	- Inverting the dependency:
+		- SQLAlchemy also allows for "classical" mapping, where you define your schema separately, and define an explicit mapper for how to convert between schema and domain model
+ 
+[*... it goes on with some code examples (which are skipped by the Assistant) and finally gets to advantages and disadvantages (which are picked up by the Assistant)*]
+```  
 **Assistant's answer:**  
-> The repository pattern is a design pattern that decouples data access from the business logic of an application. It defines a simple interface between the application and the data storage, allowing the application to use different data storage solutions without changing the code.
->  
-> The repository pattern is based on the dependency inversion principle (DIP), which states that high-level modules should not depend on low-level modules, but rather both should depend on abstractions. In the context of data access, this means that the domain model should not depend on the data storage technology, but rather both should depend on an abstraction, such as an interface or a port.
->  
-> The advantages of the repository pattern include:
->  
->    - Simple interface between domain model and storage
->    - Easy to unit test and swap out different storage solutions
->    - Complete control over the mapping of objects to the database
->  
-> The disadvantages of the repository pattern include:
->  
->    - An ORM already brings some decoupling
->    - Maintaining ORM mappings requires work and extra code
->    - Increases maintenance costs and is often met with incomprehension by others
->  
-> If your app is just a simple create-read-update-delete (CRUD) wrapper around a database, you don't need a domain model or repository.
->  
-> I hope this summary helps! Let me know if you have any further questions.
-
+```
+The repository pattern is a design pattern that decouples data access from the business logic of an application. It defines a simple interface between the application and the data storage, allowing the application to use different data storage solutions without changing the code.
+ 
+The repository pattern is based on the dependency inversion principle (DIP), which states that high-level modules should not depend on low-level modules, but rather both should depend on abstractions. In the context of data access, this means that the domain model should not depend on the data storage technology, but rather both should depend on an abstraction, such as an interface or a port.
+ 
+The advantages of the repository pattern include:
+ 
+   - Simple interface between domain model and storage
+   - Easy to unit test and swap out different storage solutions
+   - Complete control over the mapping of objects to the database
+ 
+The disadvantages of the repository pattern include:
+ 
+   - An ORM already brings some decoupling
+   - Maintaining ORM mappings requires work and extra code
+   - Increases maintenance costs and is often met with incomprehension by others
+ 
+If your app is just a simple create-read-update-delete (CRUD) wrapper around a database, you don't need a domain model or repository.
+ 
+I hope this summary helps! Let me know if you have any further questions.
+```
 Another example, this time using the web search:  
   
-**My query:**  
-> Which websites provide CSV data on economic indicators of Germany's major industry sectors?
-  
+**Query:**  
+```  
+Which websites provide CSV data on economic indicators of Germany's major industry sectors?
+```  
 **Assistant's answer:**  
+```
 The websites that provide CSV data on economic indicators of Germany's major industry sectors are:
 
     ifo Institute (https://www.ifo.de/en/node/51407)
     Federal Statistical Office (https://www.destatis.de/EN/Themes/Economy/Short-term-indicators.html)
 
 Explanation: The ifo Institute provides a monthly survey of industrial enterprises in Germany, which includes information on production impediments caused by scarce raw materials and intermediate products. The Federal Statistical Office publishes detailed tables with monthly or quarterly results for various domains, including economic indicators, and provides the table data in CSV format for further processing.
-  
+```  
 And a last example using the Python tool:  
   
-**My query:**  
-> Write python code to generate 16 prime numbers in a for loop. Then store the numbers in a pandas dataframe  
-  
+**Query:**  
+```
+Write python code to generate 16 prime numbers in a for loop. Then store the numbers in a pandas dataframe  
+```  
 **Assistant's answer:**  
-> Sure, I can help you with that! Here's an example Python code that generates 16 prime numbers using a for loop and stores them in a Pandas DataFrame:
-> ```python
-> import numpy as np
-> import pandas as pd
-> 
-> # Generate 16 prime numbers using a for loop
-> primes = []
-> for i in range(16):
->    is_prime = True
->    for j in range(2, int(i ** 0.5) + 1):
->        if i % j == 0:
->            is_prime = False
->            break
->    if is_prime:
->        primes.append(i)
-> 
-> # Create a Pandas DataFrame with the generated prime numbers
-> df = pd.DataFrame({'Prime Numbers': primes})
-> 
-> print(df)
-> ```
-> This code uses a for loop to iterate from 2 to 16, and for each number, it checks whether it is prime by iterating from 2 to its square root and checking if it has any factors. If it doesn't have any factors, it is considered prime, and its value is appended to a list called `primes`. Finally, the prime numbers are stored in a Pandas DataFrame called `df` with a column name of "Prime Numbers". The resulting DataFrame looks like this:
-> ```pandas
->   Prime Numbers
-> 0          2
-> 1          3
-> 2          5
-> 3          7
-> 4         11
-> 5         13
-> 6         17
-> 7         19
-> 8         23
-> 9         29
-> 10        31
-> 11        37
-> 12        41
-> 13        43
-> 14        47
-> 15        53
-> 16        59
-  
+```
+Sure, I can help you with that! Here's an example Python code that generates 16 prime numbers using a for loop and stores them in a Pandas DataFrame:
+    ```python
+    import numpy as np
+    import pandas as pd
+
+    # Generate 16 prime numbers using a for loop
+    primes = []
+    for i in range(16):
+    is_prime = True
+    for j in range(2, int(i ** 0.5) + 1):
+        if i % j == 0:
+            is_prime = False
+            break
+    if is_prime:
+        primes.append(i)
+
+    # Create a Pandas DataFrame with the generated prime numbers
+    df = pd.DataFrame({'Prime Numbers': primes})
+
+    print(df)
+    ```
+This code uses a for loop to iterate from 2 to 16, and for each number, it checks whether it is prime by iterating from 2 to its square root and checking if it has any factors. If it doesn't have any factors, it is considered prime, and its value is appended to a list called `primes`. Finally, the prime numbers are stored in a Pandas DataFrame called `df` with a column name of "Prime Numbers". The resulting DataFrame looks like this:
+    ```  
+    Prime Numbers
+    0          2
+    1          3
+    2          5
+    3          7
+    4         11
+    5         13
+    6         17
+    7         19
+    8         23
+    9         29
+    10        31
+    11        37
+    12        41
+    13        43
+    14        47
+    15        53
+    16        59
+    ```
+```  
 ## Random challenges and lessons
 - Pay attention to use the correct prompt formatting needed for the respective model. In my case, Llama2 needed that the user input in a chat history be wrapped with `[INST]...[/INST]` tags: 
 ```python

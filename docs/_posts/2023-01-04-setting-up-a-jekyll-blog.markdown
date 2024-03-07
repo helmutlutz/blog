@@ -62,9 +62,9 @@ plugins:
 - Now you can update your local repository by pulling the changes.
 - Finally you have to edit URLs in the _config.yml file:
     ```
-    enforce_ssl: https://www.scrycode.de
+    enforce_ssl: https://www.ephemeralhorizons.com
     baseurl: ""
-    url: "https://www.scrycode.de"
+    url: "https://www.ephemeralhorizons.com"
     ```
 
 

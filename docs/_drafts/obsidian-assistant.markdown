@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Building an LLM-based Chatbot for my Knowledgebase"
+title:  "Getting into LLM Agents: Building an Assistant (aka ChatGPT) for my Knowledgebase"
 date:   2024-03-07 13:00:00 +0100
 category: Work
 tags: MachineLearning LLMs Agents KnowledgeManagement

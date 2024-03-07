@@ -7,15 +7,21 @@ tags: MTG
 ---
 ![Rares from the event](/images/phyrexia-all-will-be-one-sealed/ONE-sealed-event.jpg)
 
-Have you ever attended a *Sealed* event for Magic: The Gathering (MTG)? If you're unfamiliar with the game, a sealed event is a type of tournament where players are given a set number of cards and have to build a deck from them on the spot. Recently, I had the opportunity to attend my first sealed event for the newest MTG set, "Phyrexia: All will be one". While I'm still relatively new to the game, the experience was both exciting and challenging.  
+I attended my first ever *Magic: The Gathering* event! 
 <!--more-->
+  
+We're in the set "Phyrexia: All will be one" and the format was *Sealed* - a type of tournament where players are given a number of random cards from which they have to build a deck. I'm relatively new to this, so there's a lot to learn.  
 
-In this blog post, I'll share my thoughts on the event, the set, and some of the lessons I went home with. Keep in mind, this won't be a guide per se, but rather a personal reflection on my first sealed experience. If you're interested in learning more about the format, there are plenty of resources available online, such as [Card Game Base][cardgamebase], [Draftsim][draftsim], or [MTG Arena Zone][mtgazone].
+## Set overview
+Red is strong in this ONE. It has some great removal at the common level (Hexgold Slash and Volt Charge), good creatures and combat tricks, and oil counter support. The color is great for fast and proactive decks, which is what you want in this set. The only thing red can't do is toxic stuff.
+  
+White is the second best for aggressive decks, but with a focus on toxic. It makes Mite tokens, which are great for toxic and sac strategies. It also has an amazing removal spell (Planar Disruption).
+  
+Green is more midrange, with oil counters and toxic themes. It has some proliferate, too. Its toxic cards are bigger than other colors, like Plague Nurse and Tyrranax Atrocity. Its interaction is limited to Ruthless Predation and Carnivorous Canopy.
 
-## An overview of the format for beginners like me
-As with most deck-building games, the objective is to strike the right balance between creature-spells, instant-spells, sorceries, etc. while also achieving some degree of synergy between the cards. As far as my experience goes, the Sealed format is a great way to learn how to use limited resources, to try new strategies and card mechanics, and above all to have fun with the new set of cards.
+Black is all about toxic and kill spells. It has one insane common (Anoint with Affliction) but not much else. Black is good for slowing the game down or winning with poison.
 
-Throughout the tournament I played a series of best-of-three games with three opponents. That means you typically play 9 games unless some games take too long. At the end, your stats are compared in a leaderboard, and you get prizes in the form of booster packs. I mentioned already that I was a total beginner but where I played, they even handed out a booster pack for each at the end of the leaderboard - what a nice welcome present to the MTG community :P
+Blue is … bad. It tries to do proliferate and artifacts, but the latter is too narrow. It doesn't have good interaction, good early game plays, or synergy. It's better in Sealed as a support color, or in a dedicated artifact deck (Azorius). Blue's big cards are impressive (Quicksilver Fisher), but they're too slow and clunky.
 
 ## Lessons learned
 - Splashing
@@ -28,7 +34,7 @@ Throughout the tournament I played a series of best-of-three games with three op
 		- From all of this follows: avoid splashing in an aggressive deck or when you have double-colored spells
 		- Avoid 7-7-3 Mana Bases. Instead, use multiple dual-lands or mana fixers along with a single land of the splash color to not harm the consistency of your main colors.
 	- Fetchlands, or cards that fetch you a land when they come into play, are not only important in case you are splashing, but also when you have cards that require multiple mana sources of one color
-	- Some notes on "Evolving Wilds" (which I got a lot from Midnight Hunt): The main problem with Evolving Wilds is the land comes into play tapped, making it the worst of the fetchlands. In an aggressive deck, you cannot afford to waste a single turn by waiting for the right color. If you play Control, you can compensate for that by playing enough disruptors, until your big threats are on the board.
+	- The main problem with cards like Evolving Wilds is that the land comes into play tapped. In an aggressive deck, you cannot afford to waste a single turn by waiting for the right color. If you play Control, you can compensate for that by playing enough disruptors, until your big threats are on the board.
 
 - The premium promo card: This is a card which is included in the prerelease pack. It seems that even experienced players fall for becoming too attached to this card and try to accommodate it when they shouldn't. 
 
@@ -36,15 +42,12 @@ Throughout the tournament I played a series of best-of-three games with three op
   - Put six cards in front of you and start putting down cards on each of the piles 
   - When you're done, put the piles together and give it one iteration of shuffling. That's it.
 
-- Keep in mind your cards with flashback which are in the graveyard. Wouldn't have mattered in the end, but I still noticed that I forgot once or twice.
+- Keep in mind your cards with flashback which are in the graveyard. For me, it wouldn't have mattered in the end.
 
 - Keep the curve low. ONE was a quite aggressive set and after the first two matches I realized that I had to replace a 5- and 6 drop with a 2- and 3-drop. Worked much better. 
 
-## Final words
-All in all, it was a fun experience, and I learned a lot. More than I would've learned playing MTG Arena for 3 months. So far, stay curious and keep learning!
+## Wrap up
+All in all, it was a fun experience, and I learned a lot. Probably more than I would've learned playing in Arena for 3 months. Until next time, stay curious and keep learning!
 
 
 [splashing-limited]: (https://strategy.channelfireball.com/all-strategy/mtg/channelmagic-articles/to-splash-or-not-to-splash-in-limited/)
-[cardgamebase]: (https://cardgamebase.com/strategy/)
-[draftsim]: (https://draftsim.com/)
-[mtgazone]: (https://mtgazone.com/strategy/)

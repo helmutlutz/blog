@@ -7,7 +7,7 @@ tags: MTG
 ---
 ![Rares from the event](/images/march-of-the-machine-sealed/article_header.jpg)
 
-Recently, the newest MTG stet was released and I missed the prerelease because my local store messed up the reservations. But since you can buy the prerelease packs, why not do my own "event" with a friend? Same outcome, less time pressure: You get to open the pack, test your skills, and have a good time with friends.  
+Recently, the newest MTG set was released and I missed the prerelease because my local store messed up the reservations. But since you can buy prerelease packs, why not do my own "event" with a friend? Same outcome, less time pressure: You get to open the pack, test your skills, and have a good time with friends.  
 <!--more-->
 
 ## Main set mechanics

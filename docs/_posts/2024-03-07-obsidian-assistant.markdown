@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Building an LLM-based Chatbot for my Knowledgebase"
+title:  "LLM Agents: Crafting an Intelligent Assistant for Knowledge and Code"
 date:   2024-03-07 13:00:00 +0100
 category: Work
 tags: MachineLearning LLMs Agents KnowledgeManagement
@@ -8,10 +8,10 @@ tags: MachineLearning LLMs Agents KnowledgeManagement
 ![AI's Stone](/images/obsidian-assistant/ai-s-stone.jpg)
 *"Philosopher's Stone" (this image was created with the assistance of DALL·E 3)*
 
-Today's post is about building a virtual assistant and the lessons learned along the way. It is capable of answering questions from my Obsidian notes, searching the web, and executing Python code.  
+Today's post is about building a virtual assistant and the lessons learned along the way. It can answer questions from my Obsidian notes, search the web, and execute Python code.  
 <!--more-->
   
-Obsidian, in brief, is something like a personal wiki, a place to store notes from books, personal thoughts and things that I learned over time. It also contains information on personal projects, timelines, available resources, etc. - all in all, everything a personal assistant could wish for in order to make smart (or at least informed) guesses when prompted for advice.  
+Obsidian, in brief, is something like a personal wiki, a place to store notes from books, personal thoughts and things that I learned over time. It also contains information on personal projects, timelines, available resources, etc. - all in all, everything a personal assistant could wish for to make smart (or at least informed) guesses when prompted for advice.  
   
 Here is the list of resources that I used and took inspiration from for this project: 
 - Marc's [post][paeppers-llm-agent] on building an LLM agent from scratch
@@ -50,9 +50,9 @@ A typical LLM agent follows this sequence:
 Agent frameworks may differ; for instance, ReAct combines tool selection and answer generation in a single prompt. The logic can run in a single pass or an agent loop that terminates upon generating a final answer, throwing an exception, or reaching a timeout. Despite variations, agents consistently leverage the LLM to orchestrate planning and tool invocations until task completion.
 
 ## Learning from a minimal example
-For the obsidian-chatbot I want to use langchain, but it has already reached a point where it has become very complicated with lots of abstractions. Maybe we can understand how an llm-agent works with a few simple lines of code. Doing some research, I came across the [llm_agents repository by Marc Päpper] and found it to be a great resource for understanding some concepts. Let's take a look at some code passages and break down how an agent works under the hood.  
+For the obsidian-chatbot I want to use LangChain, but it has already reached a point where it has become very complicated with lots of abstractions. Maybe we can understand how an LLM Agent works with a few simple lines of code. Doing some research, I came across the [llm_agents repository by Marc Päpper] and found it to be a great resource for understanding some concepts. Let's take a look at some code passages and break down how an agent works under the hood.  
   
-First of all, we want to have an entrypoint for running the agent. This entrypoint is the `run_agent.py` file. It takes user input, initializes an agent using the Agent class, and then runs the agent to generate a response. The agent is equipped with various tools such as PythonREPLTool, SerpAPITool, and HackerNewsSearchTool. The final answer from the agent is printed.  
+First, we want to have an entrypoint for running the agent. This entrypoint is the `run_agent.py` file. It takes user input, initializes an agent using the Agent class, and then runs the agent to generate a response. The agent is equipped with various tools such as PythonREPLTool, SerpAPITool, and HackerNewsSearchTool. The final answer from the agent is printed.  
 ```python
 from llm_agents import Agent, ChatLLM, PythonREPLTool, SerpAPITool, HackerNewsSearchTool
 
@@ -103,7 +103,7 @@ while num_loops < self.max_loops:
     print(generated)
     previous_responses.append(generated)
 ```  
-How does the agent actually know when to stop and return a final answer? Again, this comes from the original prompt template. In the template, the LLM is instructed to "...repeat N times, use it until you are sure of the answer". When sure, it's instructed to print the following: "Thought: I now know the final answer; Final Answer: your final answer to the original input question"  
+How does the agent know when to stop and return a final answer? Again, this comes from the original prompt template. In the template, the LLM is instructed to "...repeat N times, use it until you are sure of the answer". When sure, it's instructed to print the following: "Thought: I now know the final answer; Final Answer: your final answer to the original input question"  
 
 ### The ChatLLM class - language model interaction
 The ChatLLM class interacts with the language model (in this case, 'gpt-3.5-turbo') using the OpenAI API. It generates responses based on the provided prompt (which is updated in each step of the conversation), and the temperature parameter controls the "creativity" of the generated response.
@@ -131,13 +131,13 @@ In summary, the agent combines a language model with various tools to provide a 
 ## My version of a personal assistant
 In the previous section we talked about the "high-level view" and how an agent works under the hood. In addition to the minimal example from before, I want the agent to be able to answer questions with information from my Obsidian notes.  
 If you're not familiar with Obsidian, here is an excerpt from Wikipedia: "Obsidian is a personal knowledge base and note-taking software application that operates on Markdown files. It allows users to make internal links for notes and then to visualize the connections as a graph."  
-So if you are really consistent in taking notes, these files should be a wonderful resource for an agent who is presented not only with technical problems, but also serves as a personal advisor. My hope is, that eventually, the agent can help me to manage time, resources, and even act as a sparring partner for projects (brain storming, programming etc.).   
-One of the reasons I chose Obsidan, was that it stores everything in plain markdown files (essentially like `.txt` files). This "openness" makes it really easy now to process all the data at once.  
+So, if you are really consistent in taking notes, these files should be a wonderful resource for an agent who is presented not only with technical problems, but also serves as a personal advisor. My hope is, that eventually, the agent can help me to manage time, resources, and even act as a sparring partner for projects (brainstorming, programming etc.).   
+One of the reasons I chose Obsidan, was that it stores everything in plain markdown files (essentially like `.txt` files). This "openness" makes it easy to process all the data at once.  
   
 In this section, you will see how I built the "Obsidian Search Tool". It's of course only one way of building it. In principle you could also use the minimal agent library that I showed in the last section, Huggingface's Transformers Agents, or any other of the currently spawning agent libraries. Afterwards, we assemble the pieces: agent, tools, and all the wiring in between. 
 
 ### Building a vector store for the documents
-Easy things first. I loaded all the documents in my Obsidian notes folder, and split the documents into chunks.  
+Easy things first. I loaded all the documents in my Obsidian notes folder and split the documents into chunks.  
 ```python
 def get_markdown_files(path):
     markdown_files = []
@@ -197,7 +197,7 @@ def chunk_doc_to_dict(lines: list, min_chunk_lines=3) -> dict:
 
         current_chunk.append(line)
 
-    # The previous loop only adds current_chunk to chunks when it encounters a new top-level bullet, and there are no more top-level bullets after the last line. So we need to manually add the last chunk.
+    # The previous loop only adds current_chunk to chunks when it encounters a new top-level bullet, and there are no more top-level bullets after the last line. So, we need to manually add the last chunk.
     if current_chunk:
         
         if len(current_chunk) > min_chunk_lines:
@@ -238,9 +238,9 @@ def create_vault_dict(vault_path: str, paths: list) -> dict:
     return vault
 ```
   
-Next is the so called "embedding": I will transform the chunks into vectors using the `all-MiniLM-L6-v2` sentence transformer model. A sentence transformer maps sentences & paragraphs to a 384 dimensional dense vector space and can be used for tasks like clustering or semantic search - and semantic search is what we want.  
+Next is the so called "embedding": I will transform the chunks into vectors using the `all-MiniLM-L6-v2` sentence transformer model. A sentence transformer maps sentences & paragraphs to a 384-dimensional dense vector space and can be used for tasks like clustering or semantic search - and semantic search is what we want.  
 Where do you typically store data? In a database, or a data warehouse. For vectors that is simply called *vector store*.  
-> A vector is a datastructure to store a sequence of numbers, and a vector *store* is a database for vectors. During the embedding, vectors are created from the data such that similar data points are close together in *vector space*. That is why similarity can be computed more efficiently and you can retrieve items even if they don't exactly match the query.  
+> A vector is a data structure to store a sequence of numbers, and a vector *store* is a database for vectors. During the embedding, vectors are created from the data such that similar data points are close together in *vector space*. That is why similarity can be computed more efficiently and you can retrieve items even if they don't exactly match the query.  
   
 The embedding and storing is both handled by the function `Chroma.from_documents(documents, embedding-transformer, persist_directory)` (Side note: *embedding-transformer* here refers to anything that computes, or *transforms* strings to vectors).   
 ```python
@@ -277,7 +277,7 @@ def create_vector_db(vault: dict, save_path) -> dict:
     return
 ```   
   
-There is a plethora of vector store apis available within langchain, so how to choose the right one? Initially I came across these two examples: in-memory document arrays and Chroma. Chroma is a full-featured vector database for production usage. Key advantages are:  
+There is a plethora of vector store APIs available within LangChain, so how to choose the right one? Initially I came across these two examples: in-memory document arrays and Chroma. Chroma is a full-featured vector database for production usage. Key advantages are:  
 - Persistent storage of vectors and metadata
 - Indexing for fast similarity search
 - Support for adding, deleting, updating documents
@@ -289,7 +289,7 @@ An in-memory document array is simpler, meant for testing/prototyping:
 In summary, Chroma is designed for production usage. In-memory document array is for simpler testing/prototyping. A good resource for making an informed decision is [this guide][choose-vector-store]
   
 ### Bringing it all together: Building the agent
-Finally, we are ready to assemble the pieces: agent, tools, and all the wiring in between. First you will need to decide which *agent type* you want to use. With langchain, there are a couple of agent types that are closely tied to OpenAI models. My rationale here was, I would rather not be immediately tied to one vendor, so I went with a simple but effective ReAct-type agent.  
+Finally, we are ready to assemble the pieces: agent, tools, and all the wiring in between. First you will need to decide which *agent type* you want to use. With LangChain, there are a couple of agent types that are closely tied to OpenAI models. My rationale here was, I would rather not be immediately tied to one vendor, so I went with a simple but effective ReAct-type agent.  
 > ReAct is a pattern to help LLMs solve tasks by generating both reasoning and actions. Reasoning helps the LLM to plan, update, and explain its actions, while actions help the model to interact with external sources, such as websites or environments, to get more information.  
   
 To use it, you need this pattern:
@@ -299,7 +299,7 @@ agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
 ```
   
 You see, we need three things, the LLM, toolbox, and a system prompt which is always used at the beginning of a chat. 
-1. The LLM: I didn't want to use a particular proprietary model, but an *open* model that is available from a myriad of vendors. Llama2 is a good candidate here since it's available in Replicate, Amazon Bedrock, Huggingface, and many more. You can go to the [langchain Docs here][langchain-llm-interfaces] and see if your chosen vendor is supported. As you can see in the code below, I chose Replicate and implemented it according to langchain's documentation.
+1. The LLM: I didn't want to use a particular proprietary model, but an *open* model that is available from a myriad of vendors. Llama2 is a good candidate here since it's available in Replicate, Amazon Bedrock, Huggingface, and many more. You can go to the [LangChain Docs here][langchain-llm-interfaces] and see if your chosen vendor is supported. As you can see in the code below, I chose Replicate and implemented it according to LangChain's documentation.
 2. The toolbox: As explained in the section *Learning from a minimal example / Providing the tools*, you need to construct the tools in a certain way for the agent to be able to use them. The web-search and python REPL are built-in tools, they are documented [here][langchain-builtin-tools]. For the Obsidian-tool, I implemented a retrieval tool to extract information from the Obsidian vector store according to [this guide][conversational-retrieval-agents]. On top, I added Contextual Compression as described [here][contextual-compression].  
 > The idea of contextual compression is to compress retrieved documents from the vector store, using the context of the given query, so that only the relevant information is returned.
 > Under the hood, the agent sends the retrieved chunks to the LLM to extract relevant information. To do that it prepends each query with the following prompt:  
@@ -308,7 +308,7 @@ You see, we need three things, the LLM, toolbox, and a system prompt which is al
 >   
 > Remember, *DO NOT* edit the extracted parts of the context.  
 > """    
-3. And last but not least, the prompt: You cannot simply pass a string as prompt. In langchain, the prompt needs to be a certain object, because the agent needs to populate it with information about the available tools, the chat history, and the user query. The following does the trick:  
+3. And last but not least, the prompt: You cannot simply pass a string as prompt. In LangChain, the prompt needs to be a certain object, because the agent needs to populate it with information about the available tools, the chat history, and the user query. The following does the trick:  
   
 ```python
 from langchain.prompts import PromptTemplate
@@ -527,19 +527,19 @@ This code uses a for loop to iterate from 2 to 16, and for each number, it check
     16        59
     ```
 ```  
-## Random challenges and lessons
+## Random tips and lessons
 - Pay attention to use the correct prompt formatting needed for the respective model. In my case, Llama2 needed that the user input in a chat history be wrapped with `[INST]...[/INST]` tags: 
 ```python
 if dict_message["role"] == "user":
     string_dialogue += "[INST] " + dict_message["content"] + " [/INST]\n"
 ```
-- Leave out large documents in the vector store: In the beginning, I also stored chunks AND entire notes in the vector store. The Obsidian tool sends all similar documents retrieved to the LLM, with entire notes quickly exceeding the input token limit of 4096. In addition it just causes unneccessary additional costs.
-- I couldn't figure out how to apply compression to the result of search tools like SerpAPI (I guess this will apply to other search tools as well). I switched to using Tavily, which has been optimized for usage with LLMs. As far as I can see the search results are already processed internally by their own LLM. I saw that you can actually apply contextual compression but only if you use `TavilySearchAPIRetriever` - so the retriever version of the tavily-wrapper.
+- Leave out large documents in the vector store: In the beginning, I also stored chunks AND entire notes in the vector store. The Obsidian tool sends all similar documents retrieved to the LLM, with entire notes quickly exceeding the input token limit of 4096. In addition, it just causes unneccessary additional costs.
+- I couldn't figure out how to apply compression to the result of search tools like SerpAPI (I guess this will apply to other search tools as well). I switched to using Tavily, which has been optimized for usage with LLMs. As far as I can see the search results are already processed internally by their own LLM. I saw that you can actually apply contextual compression but only if you use `TavilySearchAPIRetriever` - so the retriever version of the Tavily-wrapper.
 - When a query triggers the wrong tool, the agent can continue forever. A simple safeguard to cap the max number of iterations, is to use `max_iterations` when setting up the `AgentExecutor`. 
 - And why on earth does Llama2 sometimes continue in the background with the question "What is the meaning of life"? Well, turns out that when you simply enter a space " " in the query field and hit enter, the agent jumps into a new chain with exactly this question in mind. I'm not going down this rabbit hole today - I'll fix that on some other day ;)
-- `llama-2-70b-chat` just cannot code at all. For coding tasks I switched to `codellama-34b-instruct`. A strange habit of codellama is that it goes on with random questions like "What is the mean of the first row?", "What is the standard deviation of the second column?", or "What is the median of the third row". Another issue for another day.
-- You might have noticed that I instructed the assistant to formulate a response immediately after using a tool, essentially preventing it from going from one tool to another. I did this because I noticed that it was forgetting the original system prompt, not sticking to the required output formatting, and also exceeding the token limit. There must be a way to limit what the agent stores in agent_scratchpad, but that is another point on my todo-list. 
-- Last but not least: Watch your costs! It's not a lot, but it quickly adds up when your dear assistant goes on pondering the question "What is the meaning of life?".
+- `llama-2-70b-chat` just cannot code at all. For coding tasks, I switched to `codellama-34b-instruct`. A strange habit of codellama is that it goes on with random questions like "What is the mean of the first row?", "What is the standard deviation of the second column?", or "What is the median of the third row". Another issue for another day.
+- You might have noticed that I instructed the assistant to formulate a response immediately after using a tool, essentially preventing it from going from one tool to another. I did this because I noticed that it was forgetting the original system prompt, not sticking to the required output formatting, AND exceeding the token limit. There must be a way to limit what the agent stores in agent_scratchpad, but that is another point on my Todo-list. 
+- Finally: Watch your costs! It's not a lot, but it quickly adds up when your dear assistant goes on pondering the question "What is the meaning of life?".
   - $0.15 for the query to summarize an Obsidian note. I was using `llama-2-70b-chat` (at that time the largest Llama2 on replicate).
   - $0.08 for a web search.
   - $0.17 for the small python task.

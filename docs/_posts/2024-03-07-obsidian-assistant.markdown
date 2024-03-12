@@ -132,13 +132,13 @@ In summary, the agent combines a language model with various tools to provide a 
 ## My version of a personal assistant
 In the previous section we talked about the "high-level view" and how an agent works under the hood. In addition to the minimal example from before, I want the agent to be able to answer questions with information from my Obsidian notes.  
 If you're not familiar with Obsidian, here is an excerpt from Wikipedia: "Obsidian is a personal knowledge base and note-taking software application that operates on Markdown files. It allows users to make internal links for notes and then to visualize the connections as a graph."  
-So, if you are really consistent in taking notes, these files should be a wonderful resource for an agent who is presented not only with technical problems, but also serves as a personal advisor. My hope is, that eventually, the agent can help me to manage time, resources, and even act as a sparring partner for projects (brainstorming, programming etc.).   
+So, if you are really consistent in taking notes, these files are a wonderful resource for an agent who is presented not only with technical problems, but also serves as a personal advisor. My hope is, that eventually, the agent can help me to manage time, resources, and even act as a sparring partner for projects (brainstorming, programming etc.).   
 One of the reasons I chose Obsidan, was that it stores everything in plain markdown files (essentially like `.txt` files). This "openness" makes it easy to process all the data at once.  
   
 In this section, you will see how I built the "Obsidian Search Tool". It's of course only one way of building it. In principle you could also use the minimal agent library that I showed in the last section, Huggingface's Transformers Agents, or any other of the currently spawning agent libraries. Afterwards, we assemble the pieces: agent, tools, and all the wiring in between. 
 
 ### Building a vector store for the documents
-Easy things first. I loaded all the documents in my Obsidian notes folder and split the documents into chunks.  
+Easy things first. I loaded all the documents in my Obsidian notes folder and split the documents into chunks. The code was taken and adapted from Eugene's nice [implementation][eugenes-obsidian-assistant].    
 ```python
 def get_markdown_files(path):
     markdown_files = []
@@ -513,17 +513,7 @@ This code uses a for loop to iterate from 2 to 16, and for each number, it check
     1          3
     2          5
     3          7
-    4         11
-    5         13
-    6         17
-    7         19
-    8         23
-    9         29
-    10        31
-    11        37
-    12        41
-    13        43
-    14        47
+    [...]
     15        53
     16        59
     ```

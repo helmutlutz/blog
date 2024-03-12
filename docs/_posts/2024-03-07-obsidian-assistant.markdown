@@ -17,9 +17,10 @@ Here is the list of resources that I used and took inspiration from for this pro
 - Marc's [post][paeppers-llm-agent] on building an LLM agent from scratch
 - Kai's [post][kaichaos-qa-bot] on building a Q&A bot to query a PDF
 - Chanin's [post][st-llama2-chatbot] on building a Llama2 chatbot with replicate
+- Eugene's [post][eugenes-obsidian-assistant] on building an a very similar Obsidian copilot
 
 ## Fundamental concepts
-Virtual assistant is one way to call it. More commonly however, they are called LLM agents. These are programs that leverage Large Language Models (LLMs) to make decisions about when and how to utilize one tool out of their own toolbox in order to accomplish its tasks. Provided with the right tools, agents can interact with external systems, overcoming inherent limitations of LLMs such as knowledge cutoffs, hallucinations, and even simple math. Tools can take different forms, ranging from API calls (think of searching the web) and Python functions to webhook-based plugins.  
+Virtual assistant is one way to call it. More commonly however, they are called LLM agents. These are programs that leverage Large Language Models (LLMs) to make decisions about when and how to utilize one tool out of their own toolbox in order to accomplish their task. Provided with the right tools, agents can interact with external systems, overcoming inherent limitations of LLMs such as knowledge cutoffs, hallucinations, or doing exact calculations. Tools can take different forms, ranging from API calls (think of searching the web) and Python functions to webhook-based plugins.  
   
 So, how would the interaction with an agent look like? A straightforward method involves passing an entire description of the task to an LLM - with a curated list of tools, instructions and all other information it might need. Where not so long ago, you would write a code with many if-else statements to define the behavior of program, nowadays you can rely on LLMs to "understand" what you want from plain English.  
 An example of such a prompt might resemble the following, potentially incorporating few-shot examples to enhance the LLM's accuracy in selecting the appropriate tool. There will be more detailed examples following.
@@ -50,7 +51,7 @@ A typical LLM agent follows this sequence:
 Agent frameworks may differ; for instance, ReAct combines tool selection and answer generation in a single prompt. The logic can run in a single pass or an agent loop that terminates upon generating a final answer, throwing an exception, or reaching a timeout. Despite variations, agents consistently leverage the LLM to orchestrate planning and tool invocations until task completion.
 
 ## Learning from a minimal example
-For the obsidian-chatbot I want to use LangChain, but it has already reached a point where it has become very complicated with lots of abstractions. Maybe we can understand how an LLM Agent works with a few simple lines of code. Doing some research, I came across the [llm_agents repository by Marc Päpper] and found it to be a great resource for understanding some concepts. Let's take a look at some code passages and break down how an agent works under the hood.  
+For the Obsidian-chatbot I want to use LangChain, but it has already reached a point where it has become very complicated with lots of abstractions. Maybe we can understand how an LLM Agent works with a few simple lines of code. Doing some research, I came across the `llm_agents` [repository][paeppers-agent-repo] by Marc Päpper and found it to be a great resource for understanding some concepts. Let's take a look at some code passages and break down how an agent works under the hood.  
   
 First, we want to have an entrypoint for running the agent. This entrypoint is the `run_agent.py` file. It takes user input, initializes an agent using the Agent class, and then runs the agent to generate a response. The agent is equipped with various tools such as PythonREPLTool, SerpAPITool, and HackerNewsSearchTool. The final answer from the agent is printed.  
 ```python
@@ -571,8 +572,9 @@ My journey into the world of large language models (LLMs) has been both exciting
 
 Acknowledgments: I’d like to express my gratitude to the LangChain community, fellow developers, and the creators of LLMs. Your collective efforts inspire us all. Happy building! 🙌
 
-
+[eugenes-obsidian-assistant]: https://eugeneyan.com/writing/obsidian-copilot/
 [paeppers-llm-agent]: https://www.paepper.com/blog/posts/intelligent-agents-guided-by-llms/
+[paeppers-agent-repo]: https://github.com/mpaepper/llm_agents
 [kaichaos-qa-bot]: https://randomdotnext.com/q-a-bot-using-langchain-huggingface-embedding-openai/
 [st-llama2-chatbot]: https://blog.streamlit.io/how-to-build-a-llama-2-chatbot/
 [choose-vector-store]: https://js.langchain.com/docs/modules/data_connection/vectorstores/

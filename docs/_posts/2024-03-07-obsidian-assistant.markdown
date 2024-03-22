@@ -6,12 +6,14 @@ category: Work
 tags: MachineLearning LLMs Agents KnowledgeManagement
 ---
 ![AI's Stone](/images/obsidian-assistant/ai-s-stone.jpg)
-*"Philosopher's Stone" (this image was created with the assistance of DALL·E 3)*
+*"Philosopher's Stone". Created using Microsoft’s Designer (2023) in [Copilot][copilot-url].*
 
 Today's post is about building a virtual assistant and the lessons learned along the way. It can answer questions from my Obsidian notes, search the web, and execute Python code.  
 <!--more-->
   
 Obsidian, in brief, is something like a personal wiki, a place to store notes from books, personal thoughts and things that I learned over time. It also contains information on personal projects, timelines, available resources, etc. - all in all, everything a personal assistant could wish for to make smart (or at least informed) guesses when prompted for advice.  
+  
+The structure of this blog post mirrors my personal learning journey. Initially, we delve into the fundamental concepts behind “AI”-driven virtual assistants and explore how to empower them to utilize tools for specific tasks. In this section, I’ll also provide an overview of the general backend architecture. If you’re already well-versed in these concepts, feel free to skip ahead. Subsequently, in the “My version of a personal assistant” section, I’ll detail my own implementation, conduct tests, and share insights gained along the way.  
   
 Here is the list of resources that I used and took inspiration from for this project: 
 - Marc's [post][paeppers-llm-agent] on building an LLM agent from scratch
@@ -562,6 +564,7 @@ My journey into the world of large language models (LLMs) has been both exciting
 
 Acknowledgments: I’d like to express my gratitude to the LangChain community, fellow developers, and the creators of LLMs. Your collective efforts inspire us all. Happy building! 🙌
 
+[copilot-url]: https://copilot.microsoft.com/
 [eugenes-obsidian-assistant]: https://eugeneyan.com/writing/obsidian-copilot/
 [paeppers-llm-agent]: https://www.paepper.com/blog/posts/intelligent-agents-guided-by-llms/
 [paeppers-agent-repo]: https://github.com/mpaepper/llm_agents

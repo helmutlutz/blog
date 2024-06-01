@@ -3,7 +3,7 @@ layout: post
 title:  "Craft Project: Making a Battletech Themed Hexagonal Chess"
 date:   2023-03-26 20:55:50 +0100
 category: Life
-tags: Crafting GameDesign PolymerClay
+tags: Crafting PolymerClay GameDesign BoardGames
 ---
 ![Battletech Chess Header](/images/making-a-bt-themed-hex-chess/article_header.jpg)
   

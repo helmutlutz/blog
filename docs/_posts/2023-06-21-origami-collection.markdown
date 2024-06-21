@@ -48,6 +48,12 @@ Instructions [here][parrot1]
 Difficulty: 3
 Instructions [here][dolphin1]
 
+## Flowers
+![Lotus](/images/origami-collection/lotus1.jpg)
+*Lotus flowers 15.06.2024 (Design: Gary)*
+Difficulty: 1
+Instructions [here][lotus1]
+
 
 [dragon1]: (https://jonakashima.com.br/2020/07/25/origami-dragon-v3/)
 [bunny1]: (https://www.youtube.com/watch?v=kOeX5kuW2gQ)
@@ -55,3 +61,4 @@ Instructions [here][dolphin1]
 [parrot1]: (https://www.youtube.com/watch?v=7rbpnnnUUCg)
 [scorpion1]: (https://www.youtube.com/watch?v=OEbtgtyfEoQ)
 [pterodactyl1]: (https://www.youtube.com/watch?v=guCAfLBqAvw)
+[lotus1]: (https://www.youtube.com/watch?v=WVVrpkzBlGU)
